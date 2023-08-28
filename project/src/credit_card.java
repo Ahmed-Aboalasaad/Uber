@@ -27,8 +27,5 @@ double balance;
         this.balance -= amount;
     }
 
-    @Override
-    public void refund(double amount) {
-        this.balance += amount;
-    }
+
 }

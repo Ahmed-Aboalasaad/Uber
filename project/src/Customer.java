@@ -1,37 +1,36 @@
+import Rides.BusRide;
+import Rides.CarRide;
+import Rides.Ride;
+import Rides.ScooterRide;
+
 import java.util.Scanner;
 public class Customer extends Person {
 
     String currentLocation;
-    String paymentMethod;
+    String paymentMethodtype;
+    paymentStrategy payer;
 
-    public Ride RequestARide (float distance) {
-        System.out.println(" press 1 to choose  Scooter Ride\n press 2  to choose Bus Ride \n press 3 to choose Car Ride");
-        short choice;
+
+    public Customer(){
+        super();
+        this.form();
+    }
+
+
+@Override
+    public void form(){
         Scanner scanner = new Scanner(System.in);
-        choice = scanner.nextShort();
+    System.out.println("Hi Customer, Please enter the following data:");
+    System.out.print("Name:");
+   this.Name = scanner.nextLine();
+    System.out.print("\nAge:");
+    this.Age = scanner.nextShort();
+    System.out.print("\nMail:");
+    this.Uber_Mail = scanner.nextLine();
+    System.out.print("\nPassword:");
+    this.Uber_Password = scanner.nextLine();
+    System.out.print("\nPayment Method: (Paypal - Card)");
+    this.paymentMethodtype = scanner.nextLine();
+}
 
-        Ride RuquestedRide = null;
-        switch (choice) {
-            case 1: {
-                RuquestedRide = new ScooterRide(distance);
-                break;
-            }
-            case 2: {
-                RuquestedRide = new BusRide(distance);
-                break;
-            }
-            case 3: {
-                RuquestedRide= new CarRide(distance);
-                break;
-            }
-        }
-        return RuquestedRide;
-    }
-
-    public Customer(String name, short age,String Mail, String password) {
-        super(name, age,Mail, password);
-    }
-    public void SetPaymentMethod(String paymentMethod){
-        this.paymentMethod = paymentMethod;
-    }
 }

@@ -1,3 +1,5 @@
+package Rides;
+
 public class CarRide extends Ride {
     float pricePerKM;
 
