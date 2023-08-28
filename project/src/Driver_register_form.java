@@ -9,11 +9,12 @@ public class Driver_register_form implements register_form {
     String car_Number; short id;
     String Name;
     short age;
+    String Mail;
     String password;
 
     @Override
-    public person get_info() {
-        Driver driver = new Driver(id, Name, age, password,licence,licence_type,vehicle_model,vehicle_Type,car_Number);
+    public Driver get_info() {
+        Driver driver = new Driver(Name, age,Mail, password,licence,licence_type,vehicle_model,vehicle_Type,car_Number);
         return driver;
     }
 }

@@ -3,9 +3,9 @@ import  java.util.Scanner;
 public class payment_services {
 
     private paymentStrategy paymentStrategy;
-    public void setStrategy( Customer customer ){
-        Scanner getacc =new Scanner(System.in);
-        Scanner getpass =new Scanner(System.in);
+    public void setStrategy(Customer customer){
+        Scanner getacc = new Scanner(System.in);
+        Scanner getpass = new Scanner(System.in);
 
         if (customer.payment_method.equals("paypal")){
             String acc_num =getacc.nextLine();
@@ -24,7 +24,7 @@ public class payment_services {
     public boolean check_credentials(String x,String y){
       return this.paymentStrategy.check_credentials(x,y);
     }
-    public boolean check_balance( double amount){
+    public boolean check_balance(double amount){
         return this.paymentStrategy.check_balance(amount);
     }
 
@@ -34,7 +34,6 @@ public class payment_services {
     public void refund(double amount){
         this.paymentStrategy.refund(amount);
     }
-
 
 
 

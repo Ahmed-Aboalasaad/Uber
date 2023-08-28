@@ -1,4 +1,4 @@
-public  abstract class Ride {
+public abstract class Ride {
     float distance ;
     float price ;
     float rate;

@@ -3,12 +3,10 @@ public class ScooterRide extends Ride {
 
     public ScooterRide(float distance) {
         super(distance);
-
     }
 
     @Override
     public float CalculatePrice(float Distance) {
-
         return distance * KMprice;
     }
 }

@@ -1,6 +1,5 @@
 public class BusRide extends Ride {
 
-
     int numofreservationsCounter=0;
     float TicketPrice;
     @Override
