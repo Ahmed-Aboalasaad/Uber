@@ -1,4 +1,4 @@
-public class Customer_register_form implements register_form {
+public class CustomerRegisterForm implements register_form {
 
     short id;
     String Name;
@@ -6,10 +6,11 @@ public class Customer_register_form implements register_form {
     String Mail;
     String password;
     String paymentMethod;
+
     @Override
     public Customer get_info() {
         Customer customer = new Customer(Name, age, Mail, password);
-        customer.setPaymentMethod(paymentMethod);
+        customer.SetPaymentMethod(paymentMethod);
         return customer;
     }
 

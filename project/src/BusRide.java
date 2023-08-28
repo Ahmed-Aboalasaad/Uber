@@ -1,16 +1,14 @@
 public class BusRide extends Ride {
 
-    int numofreservationsCounter=0;
-    float TicketPrice;
+    int reservationsCount = 0;
+    float ticketPrice;
     @Override
-    public float CalculatePrice(float Distance) {
-        return TicketPrice ;
+    public float CalculatePrice(float distance) {
+        return ticketPrice ;
     }
 
     public BusRide(float distance) {
         super(distance);
-        numofreservationsCounter++;
+        reservationsCount++;
     }
-
-
 }

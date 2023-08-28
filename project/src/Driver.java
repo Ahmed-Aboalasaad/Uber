@@ -1,17 +1,17 @@
-public class Driver  extends person {
+public class Driver  extends Person {
     String licence;
-    String licence_type;
-    String vehicle_model;
-    String vehicle_Type;
+    String licenceType;
+    String vehicleModel;
+    String vehicleType;
+    String carNumber;
 
-    String car_Number;
-
-    public Driver(String name, short age,String Mail, String password, String licence, String licence_type, String vehicle_model, String vehicle_Type, String car_Number) {
+    public Driver(String name, short age,String Mail, String password, String licence, String licenceType, String vehicleModel, String vehicleType, String carNumber)
+    {
         super(name, age,Mail, password);
         this.licence = licence;
-        this.licence_type = licence_type;
-        this.vehicle_model = vehicle_model;
-        this.vehicle_Type = vehicle_Type;
-        this.car_Number = car_Number;
+        this.licenceType = licenceType;
+        this.vehicleModel = vehicleModel;
+        this.vehicleType = vehicleType;
+        this.carNumber = carNumber;
     }
 }

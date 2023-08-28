@@ -1,41 +1,38 @@
-import  java.util.Scanner;
+import java.util.Scanner;
 
 public class payment_services {
 
     private paymentStrategy paymentStrategy;
+
     public void setStrategy(Customer customer){
-        Scanner getacc = new Scanner(System.in);
-        Scanner getpass = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
 
-        if (customer.payment_method.equals("paypal")){
-            String acc_num =getacc.nextLine();
-            String pass= getpass.nextLine();
+        if (customer.paymentMethod.equals("paypal")){
+            String paypalNumber = scanner.nextLine();
+            String paypalPassword = scanner.nextLine();
 
-            this.paymentStrategy= new paypal(acc_num,pass);
+            this.paymentStrategy= new paypal(paypalNumber, paypalPassword);
 
         }
-        else if (customer.payment_method.equals("Credit_card")){
-            String credit_card_Num=getacc.nextLine();
-            String CVV=getpass.nextLine();
-            this.paymentStrategy= new credit_card(credit_card_Num,CVV);
+        else if (customer.paymentMethod.equals("Credit_card")){
+            String creditCardNumber = scanner.nextLine();
+            String CVV = scanner.nextLine();
+            this.paymentStrategy= new credit_card(creditCardNumber,CVV);
         }
     }
 
-    public boolean check_credentials(String x,String y){
-      return this.paymentStrategy.check_credentials(x,y);
+    public boolean checkCredentials(String username,String password){
+      return this.paymentStrategy.checkCredentials(username, password);
     }
-    public boolean check_balance(double amount){
-        return this.paymentStrategy.check_balance(amount);
+    public boolean checkBalance(double amount){
+        return this.paymentStrategy.checkBalance(amount);
     }
 
-    public void deducte_balance(double amount){
-         this.paymentStrategy.deducte_balance(amount);
+    public void deductBalance(double amount){
+         this.paymentStrategy.deductBalance(amount);
     }
     public void refund(double amount){
         this.paymentStrategy.refund(amount);
     }
-
-
-
 
 }

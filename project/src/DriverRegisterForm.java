@@ -1,16 +1,14 @@
-public class Driver_register_form implements register_form {
-    String licence;
-    String licence_type;
-    String vehicle_model;
-    String vehicle_Type;
-
-
+public class DriverRegisterForm implements register_form {
 
     String car_Number; short id;
     String Name;
     short age;
     String Mail;
     String password;
+    String licence;
+    String licence_type;
+    String vehicle_model;
+    String vehicle_Type;
 
     @Override
     public Driver get_info() {

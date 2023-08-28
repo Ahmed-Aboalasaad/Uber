@@ -8,7 +8,7 @@ import java.util.Set;
 public class Graph {
     private int citiesNum, roadNum;
     String name;
-    private HashMap<String, AdjacencyList> map = new HashMap<>();
+    private HashMap <String, AdjacencyList> map = new HashMap<>();
 
     // Constructors & destrcutor
     public Graph() {
@@ -105,7 +105,7 @@ public class Graph {
     // Roads
     /**
      * adds or edits roads between 2 cities (the order matters)
-     * @param city1 souce
+     * @param city1 source
      * @param city2 destination
      * @param distance the distance
      */

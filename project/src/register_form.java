@@ -1,3 +1,3 @@
 public interface register_form {
-    public abstract person get_info();
+    public abstract Person get_info();
 }

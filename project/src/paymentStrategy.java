@@ -1,6 +1,6 @@
 public interface paymentStrategy {
-    public boolean check_credentials(String x,String y);
-    public boolean check_balance( double amount);
-    public void deducte_balance(double amount);
+    public boolean checkCredentials(String username,String password);
+    public boolean checkBalance(double amount);
+    public void deductBalance(double amount);
     public void refund(double amount);
 }

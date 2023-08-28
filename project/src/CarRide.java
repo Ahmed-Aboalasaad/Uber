@@ -1,14 +1,12 @@
 public class CarRide extends Ride {
-        float KMprice;
+    float pricePerKM;
 
     public CarRide(float distance) {
         super(distance);
-
     }
 
     @Override
-    public float CalculatePrice(float Distance) {
-
-        return distance*KMprice ;
+    public float CalculatePrice(float distance) {
+        return distance * pricePerKM ;
     }
 }

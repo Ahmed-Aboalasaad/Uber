@@ -1,8 +1,9 @@
 public class credit_card implements paymentStrategy {
 
-double balance;
 String creditCardNumber;
 String CVV;
+double balance;
+
 
     public credit_card(String creditCardNumber, String CVV) {
         this.creditCardNumber = creditCardNumber;
@@ -14,21 +15,20 @@ String CVV;
     }
 
     @Override
-    public boolean check_credentials(String c_Num ,String cvv ) {
-        return (c_Num.equals(this.creditCardNumber) ) & (cvv.equals(this.CVV));
+    public boolean checkCredentials(String creditCardNumber, String CVV) {
+        return (creditCardNumber.equals(this.creditCardNumber) ) & (CVV.equals(this.CVV));
     }
     @Override
-    public boolean check_balance (double amount){
-        return amount<=balance;
+    public boolean checkBalance (double amount){
+        return amount <= balance;
     }
 
-    public void deducte_balance(double amount){
-        this.balance-=amount;
+    public void deductBalance(double amount){
+        this.balance -= amount;
     }
 
     @Override
     public void refund(double amount) {
-        this.balance+=amount;
-
+        this.balance += amount;
     }
 }

@@ -2,8 +2,9 @@ import java.util.Scanner;
 
 public class ConsoleUi {
     public static Scanner scanner = new Scanner(System.in);
-    Customer customer;
-    Driver driver;
+    Customer currentCustomer;
+    Driver currentDriver;
+
     public void startPage() {
         System.out.println("Welcome To Uber System");
         System.out.println("1] Login");
@@ -47,28 +48,30 @@ public class ConsoleUi {
         }
     }
 
-    public void dataEnteryScreen(int type) {
-        if(type == 1)
-        {
-            Customer_register_form crf  = new Customer_register_form();
+    public void CustomerDataEntery() {
 
-            System.out.println("Hi Customer, Please enter the following data:");
-            System.out.print("Name:");
-            crf.Name = scanner.nextLine();
-            System.out.print("Age:");
-            crf.age = scanner.nextShort();
-            System.out.print("Mail:");
-            crf.Mail = scanner.nextLine();
-            System.out.print("Password:");
-            crf.password = scanner.nextLine();
-            System.out.print("Payment Method:");
-            crf.paymentMethod = scanner.nextLine();
+        CustomerRegisterForm customerForm = new CustomerRegisterForm();
 
-            customer = crf.get_info();
-        }
-        else{
+        System.out.println("Hi Customer, Please enter the following data:");
+        System.out.print("Name:");
+        customerForm.Name = scanner.nextLine();
+        System.out.print("\nAge:");
+        customerForm.age = scanner.nextShort();
+        System.out.print("\nMail:");
+        customerForm.Mail = scanner.nextLine();
+        System.out.print("\nPassword:");
+        customerForm.password = scanner.nextLine();
+        System.out.print("\nPayment Method: (Paypal - Card)");
+        customerForm.paymentMethod = scanner.nextLine();
+
+        currentCustomer = customerForm.get_info();
+    }
+
+    public void DriverDataEntery() {
+
+            DriverRegisterForm drf  = new DriverRegisterForm();
+
             System.out.println("Hi Driver, Please enter the following data:");
-            Driver_register_form drf  = new Driver_register_form();
             System.out.print("Name:");
             drf.Name = scanner.nextLine();
             System.out.print("Age:");
@@ -88,16 +91,17 @@ public class ConsoleUi {
             System.out.print("Car_Number:");
             drf.car_Number = scanner.nextLine();
 
-            driver = drf.get_info();
+            currentDriver = drf.get_info();
         }
-    }
+
     public void newAccount() {
         System.out.println("Welcome To Uber, Are you Customer or Driver ?");
         System.out.println("1] Customer\t2] Driver");
         int choice = scanner.nextInt();
         scanner.nextLine();
 
-        dataEnteryScreen(choice);
+        if(choice == 1){ CustomerDataEntery();}
+        else DriverDataEntery();
 
         System.out.println("Now you have a new account, press 1 to login!");
         choice = scanner.nextInt();
@@ -113,59 +117,36 @@ public class ConsoleUi {
     }
 
     public  void requestARide() {
+        Ride RuquestedRide;
+
         System.out.print("From:");
         String from = scanner.nextLine();
-        System.out.print("\nTo:");
+        System.out.print("To:");
         String to = scanner.nextLine();
-        System.out.print("\nRide type:");
-        String ridetype = scanner.nextLine();
-        if(ridetype.equals("bus")) {
-            //BusRide BR; // Waiting for distance Calc.
-        } else if (ridetype.equals("car")) {
-            //CarRide CR; // Waiting for distance Calc.
-        }
-        else {
-            //ScooterRide SR; // Waiting for distance Calc.
-        }
+        System.out.print("Ride type: (Bus - Car - Scooter)");
+        String rideType = scanner.nextLine();
 
-        System.out.println("TotalPrice($):");
+        float _distance_ = 0 ;
+
+        if(rideType.equals("bus"))
+            RuquestedRide = new BusRide(_distance_);
+        else if (rideType.equals("car"))
+            RuquestedRide = new CarRide(_distance_);
+        else
+            RuquestedRide = new ScooterRide(_distance_);
+
+        float totalPrice = RuquestedRide.CalculatePrice(_distance_);
+
+        System.out.println("TotalPrice($):" + totalPrice);
 
         System.out.println("Request? (y/n)");
         char choice = scanner.next().charAt(0);
         if(choice == 'y')
         {
-            payment_services paymethod = new payment_services();
-            paymethod.setStrategy(customer);
-            System.out.print("Enter Account Number:");
-            String AccNum = scanner.nextLine();
-            System.out.print("Enter Account Password:");
-            String AccPass = scanner.nextLine();
-            // Waiting for Price ###ABO### :(
-            /*
-            if (paymethod.check_credentials(AccNum, AccPass))
-            {
-                if(paymethod.check_balance(price))
-                {
-                    paymethod.deducte_balance(price);
-                    System.out.println("Transaction Complete");
-                }else {
-                    System.out.println("You hva not enough money");
-                }
-            }else {
-                System.out.println("Incorrect Data");
-            }*/
-
-            System.out.println("Ride Done, Thank you to use Uber.\n[0: Home Page]\t[2: Rate Driver]");
-            customer.RidesCount++;
-        }
-        int choice2 = scanner.nextInt();
-        scanner.nextLine();
-        if (choice2 == 0){
-            customerHomePage();
-        } else if (choice2 == 2) {
-            RateDiverPage();
+            PaymentValidation(totalPrice);
         }
     }
+
     public  void RateDiverPage() {
         System.out.print("Enter Number of Start (1 - 5)\n");
         int rate = scanner.nextInt();
@@ -212,23 +193,24 @@ public class ConsoleUi {
     }
 
     public void RideHistory() {
-        System.out.println("You have 9 Ries:\n1- Cairo - Alex - 400km - 30$ - Car\n2- Aswan - Poirsaid - 900km - 270$ - Bus\n");
+        System.out.println("You have " + currentCustomer.RidesCount + " Rides:\n1- Cairo - Alex - 400km - 30$ - Car\n2- Aswan - Poirsaid - 900km - 270$ - Bus\n");
         System.out.print("1]Clear\t2]Back\n");
         int choice = scanner.nextInt();
         scanner.nextLine();
+
         if (choice == 1){
-            customer.RidesCount = 0;
-            // clearhistory();
+            currentCustomer.RidesCount = 0;
+            // clearHistory();  // it's Done When we make Files
             System.out.println("History Cleared Successfully\n");
-        } else if (choice == 2) {
+        } else
             customerHomePage();
-        }
     }
+
     public void loginPage() {
         System.out.print("Email:");
-        String mail = scanner.nextLine();
+        String userMail = scanner.nextLine();
         System.out.print("Password:");
-        String pass = scanner.nextLine();
+        String userPassword = scanner.nextLine();
         customerHomePage();
     }
 
@@ -273,5 +255,37 @@ public class ConsoleUi {
         else{
             customerHomePage();
         }
+    }
+
+    public void PaymentValidation(float totalPrice){
+        payment_services paymentMethod = new payment_services();
+        paymentMethod.setStrategy(currentCustomer);
+        System.out.print("Enter Account Number:");
+        String accountNumber = scanner.nextLine();
+        System.out.print("Enter Account Password:");
+        String accountPassword = scanner.nextLine();
+        // Waiting for Price ###ABO### :(
+
+        if (paymentMethod.checkCredentials(accountNumber, accountPassword))
+            if(paymentMethod.checkBalance(totalPrice))
+            {
+                paymentMethod.deductBalance(totalPrice);
+                System.out.println("Transaction Complete");
+                currentCustomer.RidesCount++;
+
+                System.out.println("Ride Done, Thank you to use Uber.\n[0: Home Page]\t[2: Rate Driver]");
+
+                int choice2 = scanner.nextInt();
+                scanner.nextLine();
+                if (choice2 == 0)
+                    customerHomePage();
+                else
+                    RateDiverPage();
+
+            }else
+                System.out.println("You have not enough money");
+        else
+            System.out.println("Incorrect Data");
+
     }
 }

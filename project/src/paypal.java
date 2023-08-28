@@ -1,11 +1,12 @@
-public class paypal  implements paymentStrategy {
-    String account_number ;
+public class paypal implements paymentStrategy {
+    String accountNumber ;
     String password;
-     double balance ;
-    public paypal(String account_number, String password) {
-        this.account_number = account_number;
+    double balance;
+
+    public paypal(String accountNumber, String password) {
+        this.accountNumber = accountNumber;
         this.password = password;
-        this.balance=0;
+        this.balance = 0;
     }
 
     public void setBalance(double balance) {
@@ -13,21 +14,21 @@ public class paypal  implements paymentStrategy {
     }
 
     @Override
-    public boolean check_credentials(String acc_num ,String pass ) {
-        return (acc_num.equals(this.account_number) ) & (pass.equals(this.password));
-    }
-    @Override
-    public boolean check_balance (double amount){
-        return amount<=balance;
+    public boolean checkCredentials(String accountNumber, String password ) {
+        return (accountNumber.equals(this.accountNumber)) & (password.equals(this.password));
     }
 
-    public void deducte_balance(double amount){
-    this.balance-=amount;
+    @Override
+    public boolean checkBalance (double amount){
+        return amount <= balance;
+    }
+
+    public void deductBalance(double amount){
+    this.balance -= amount;
     }
 
     @Override
     public void refund(double amount) {
-        this.balance+=amount;
-
+        this.balance += amount;
     }
 }
