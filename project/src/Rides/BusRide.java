@@ -1,3 +1,5 @@
+package Rides;
+
 public class BusRide extends Ride {
 
     int reservationsCount = 0;

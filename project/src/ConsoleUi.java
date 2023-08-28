@@ -1,3 +1,8 @@
+import Rides.BusRide;
+import Rides.CarRide;
+import Rides.Ride;
+import Rides.ScooterRide;
+
 import java.util.Scanner;
 
 public class ConsoleUi {
@@ -32,9 +37,9 @@ public class ConsoleUi {
         scanner.nextLine(); // Consume the newline character
 
         if (choice == 1) {
-            System.out.println("This is Ride History");
+            System.out.println("This is Rides.Ride History");
         } else if (choice==2) {
-            System.out.println("This is Ride Customer Support");
+            System.out.println("This is Rides.Ride Customer Support");
         }
         else if (choice==3) {
             logout();
@@ -50,48 +55,15 @@ public class ConsoleUi {
 
     public void CustomerDataEntery() {
 
-        CustomerRegisterForm customerForm = new CustomerRegisterForm();
-
-        System.out.println("Hi Customer, Please enter the following data:");
-        System.out.print("Name:");
-        customerForm.Name = scanner.nextLine();
-        System.out.print("\nAge:");
-        customerForm.age = scanner.nextShort();
-        System.out.print("\nMail:");
-        customerForm.Mail = scanner.nextLine();
-        System.out.print("\nPassword:");
-        customerForm.password = scanner.nextLine();
-        System.out.print("\nPayment Method: (Paypal - Card)");
-        customerForm.paymentMethod = scanner.nextLine();
-
-        currentCustomer = customerForm.get_info();
+        currentCustomer = new Customer();
+        paymentController paymentcontrol= new paymentController();
+        paymentcontrol.setStrategy(currentCustomer);
     }
 
     public void DriverDataEntery() {
 
-            DriverRegisterForm drf  = new DriverRegisterForm();
+            currentDriver = new Driver();
 
-            System.out.println("Hi Driver, Please enter the following data:");
-            System.out.print("Name:");
-            drf.Name = scanner.nextLine();
-            System.out.print("Age:");
-            drf.age = scanner.nextShort();
-            System.out.print("Mail:");
-            drf.Mail = scanner.nextLine();
-            System.out.print("Password:");
-            drf.password = scanner.nextLine();
-            System.out.print("licence:");
-            drf.licence = scanner.nextLine();
-            System.out.print("licence_type:");
-            drf.licence_type = scanner.nextLine();
-            System.out.print("vehicle_model:");
-            drf.vehicle_model = scanner.nextLine();
-            System.out.print("vehicle_Type:");
-            drf.licence_type = scanner.nextLine();
-            System.out.print("Car_Number:");
-            drf.car_Number = scanner.nextLine();
-
-            currentDriver = drf.get_info();
         }
 
     public void newAccount() {
@@ -123,7 +95,7 @@ public class ConsoleUi {
         String from = scanner.nextLine();
         System.out.print("To:");
         String to = scanner.nextLine();
-        System.out.print("Ride type: (Bus - Car - Scooter)");
+        System.out.print("Rides.Ride type: (Bus - Car - Scooter)");
         String rideType = scanner.nextLine();
 
         float _distance_ = 0 ; // Will Change According to ABO Graph
@@ -258,7 +230,7 @@ public class ConsoleUi {
     }
 
     public void PaymentValidation(float totalPrice){
-        payment_services paymentMethod = new payment_services();
+        paymentController paymentMethod = new paymentController();
         paymentMethod.setStrategy(currentCustomer);
         System.out.print("Enter Account Number:");
         String accountNumber = scanner.nextLine();
@@ -273,7 +245,7 @@ public class ConsoleUi {
                 System.out.println("Transaction Complete");
                 currentCustomer.RidesCount++;
 
-                System.out.println("Ride Done, Thank you to use Uber.\n[0: Home Page]\t[2: Rate Driver]");
+                System.out.println("Rides.Ride Done, Thank you to use Uber.\n[0: Home Page]\t[2: Rate Driver]");
 
                 int choice2 = scanner.nextInt();
                 scanner.nextLine();
