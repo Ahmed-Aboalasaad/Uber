@@ -126,7 +126,7 @@ public class ConsoleUi {
         System.out.print("Ride type: (Bus - Car - Scooter)");
         String rideType = scanner.nextLine();
 
-        float _distance_ = 0 ;
+        float _distance_ = 0 ; // Will Change According to ABO Graph
 
         if(rideType.equals("bus"))
             RuquestedRide = new BusRide(_distance_);
