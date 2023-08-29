@@ -1,32 +1,43 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
+import java.util.LinkedList;
+
 
 public class Files {
-   public static void ReadDriverData() throws IOException {
-      int i = 0;
-      BufferedReader Reader = new BufferedReader(new FileReader("UserData\\Driver.txt"));
-
+    public static LinkedList<Driver> driverList = new LinkedList<>();
+    public static LinkedList<Customer> customerList = new LinkedList<>();
+    public static void ReadDriverData() throws IOException {
+      BufferedReader Reader = new BufferedReader(new FileReader("C:\\Users\\Adham\\IdeaProjects\\Uber\\project\\src\\UserData\\Driver.txt"));
       String line;
-      String DriverName ,DriverAge ,DriverUberMail, DriverUberPassword;
+      while((line = Reader.readLine()) != null){
+          Driver newDriver = new Driver();
+          newDriver.Name = line;
+          newDriver.Age = Short.parseShort(Reader.readLine());
+          newDriver.Uber_Mail = Reader.readLine();
+          newDriver.Uber_Password = Reader.readLine();
+          newDriver.licence = Reader.readLine();
+          newDriver.licenceType = Reader.readLine();
+          newDriver.vehicleModel = Reader.readLine();
+          newDriver.vehicleType = Reader.readLine();
+          newDriver.vehicleNumber = Reader.readLine();
 
+          driverList.add(newDriver);
+      }
+    Reader.close();
 
-          DriverName = Reader.readLine();
-          DriverAge = Reader.readLine();
-          DriverUberMail = Reader.readLine();
-          DriverUberPassword = Reader.readLine();
-
-
-          //insert rest of data in the same format
-
-      //let's say there is a list of drivers, we take all the data from the loop into a driver consturctor, then append it to the list.
-      //this now adds the data into a list
 
 
    }
    public static void WriteDriverdata() throws IOException {
-       //BufferedWriter DriverData = new BufferedWriter(new FileWriter("DriverData.txt"));
-       //DriverData.write("/n" + Driver);
+        BufferedWriter DriverData = new BufferedWriter(new FileWriter("C:\\Users\\Adham\\IdeaProjects\\Uber\\project\\src\\UserData\\Driver.txt"));
+
+        for(int i = 0 ; i < driverList.size(); i ++) {
+           DriverData.append(driverList.get(i).Name + "\n" + driverList.get(i).Age);
+           DriverData.append("\n" + driverList.get(i).Uber_Mail + "\n" + driverList.get(i).Uber_Password);
+           DriverData.append("\n" + driverList.get(i).licence + "\n" + driverList.get(i).licenceType);
+           DriverData.append("\n" + driverList.get(i).vehicleModel + "\n" + driverList.get(i).vehicleType);
+           DriverData.append("\n" + driverList.get(i).vehicleNumber + "\n");
+       }
+       DriverData.close();
 
 
    }

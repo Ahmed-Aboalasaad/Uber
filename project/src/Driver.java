@@ -1,40 +1,44 @@
 
 import java.util.Scanner;
 public class Driver  extends Person {
-    String licence;
-    String licenceType;
-    String vehicleModel;
-    String vehicleType;
-    String vehicleNumber;
+    public String licence;
+    public String licenceType;
+    public String vehicleModel;
+    public String vehicleType;
+    public String vehicleNumber;
 
 
     public Driver(){
+
         super();
-        this.form();
+        //this.form();
     }
 
     @Override
     public void form(){
+        Driver nDriver = new Driver();
         Scanner scanner = new Scanner(System.in);
         System.out.println("Hi Driver, Please enter the following data:");
         System.out.print("Name:");
-        this.Name = scanner.nextLine();
+        nDriver.Name = scanner.nextLine();
         System.out.print("Age:");
-        this.Age = scanner.nextShort();
+        nDriver.Age = Short.parseShort(scanner.nextLine());
         System.out.print("Mail:");
-        this.Uber_Mail = scanner.nextLine();
+        nDriver.Uber_Mail = scanner.nextLine();
         System.out.print("Password:");
-        this.Uber_Password = scanner.nextLine();
+        nDriver.Uber_Password = scanner.nextLine();
         System.out.print("licence:");
-        this.licence = scanner.nextLine();
+        nDriver.licence = scanner.nextLine();
         System.out.print("licence_type:");
-        this.licenceType = scanner.nextLine();
+        nDriver.licenceType = scanner.nextLine();
         System.out.print("vehicle_model:");
-        this.vehicleModel = scanner.nextLine();
+        nDriver.vehicleModel = scanner.nextLine();
         System.out.print("vehicle_Type:");
-        this.vehicleType = scanner.nextLine();
+        nDriver.vehicleType = scanner.nextLine();
         System.out.print("Car_Number:");
-        this.vehicleNumber = scanner.nextLine();
+        nDriver.vehicleNumber = scanner.nextLine();
+
+        Files.driverList.add(nDriver);
     }
 
 }
