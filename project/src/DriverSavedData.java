@@ -2,9 +2,8 @@ import java.io.*;
 import java.util.LinkedList;
 
 
-public class Files {
+public class DriverSavedData {
     public static LinkedList<Driver> driverList = new LinkedList<>();
-    //public static LinkedList<Customer> customerList = new LinkedList<>();
     public static void ReadDriverData() throws IOException {
       BufferedReader Reader = new BufferedReader(new FileReader("C:\\Users\\Adham\\IdeaProjects\\Uber\\project\\src\\UserData\\Driver.txt"));
       String line;
