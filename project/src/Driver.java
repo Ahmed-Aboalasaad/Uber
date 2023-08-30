@@ -7,6 +7,15 @@ public class Driver  extends Person {
     public String vehicleType;
     public String vehicleNumber;
 
+    private static Driver currentDriver = null;
+
+    public static Driver getInstance(){
+        if(currentDriver == null){
+            currentDriver = new Driver();
+        }
+        return currentDriver;
+    }
+
 
     public Driver(){
 

@@ -1,10 +1,22 @@
 import java.util.Scanner;
 public class Customer extends Person {
 
-    public String currentLocation;
+    public String Home;
+    public String Work;
     public String paymentMethodtype;
     public paymentStrategy payer;
 
+    private static Customer currentCustomer = null;
+
+    public static Customer getInstance(){
+        if(currentCustomer == null){
+            currentCustomer = new Customer();
+        }
+        return currentCustomer;
+    }
+
+    boolean ReservABus;
+    Double  ReservationPrice;
 
     public Customer(){
         super();
@@ -15,6 +27,7 @@ public class Customer extends Person {
 @Override
     public void form(){
     Customer nCustomer = new Customer();
+
     Scanner scanner = new Scanner(System.in);
     System.out.println("Hi Customer, Please enter the following data:");
     System.out.print("Name:");
@@ -25,8 +38,10 @@ public class Customer extends Person {
     nCustomer.Uber_Mail = scanner.nextLine();
     System.out.print("Password:");
     nCustomer.Uber_Password = scanner.nextLine();
-    System.out.println("Current Location:");
-    nCustomer.currentLocation = scanner.nextLine();
+    System.out.println("Home Location:");
+    nCustomer.Home = scanner.nextLine();
+    System.out.println("Work Location:");
+    nCustomer.Work = scanner.nextLine();
     System.out.print("Payment Method: (Paypal - Card)");
     nCustomer.paymentMethodtype = scanner.nextLine();
 

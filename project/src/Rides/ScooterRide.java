@@ -1,7 +1,7 @@
 package Rides;
 
 public class ScooterRide extends Ride {
-    float pricePerKM;
+    float pricePerKM = 5;
 
     public ScooterRide(float distance) {
         super(distance);

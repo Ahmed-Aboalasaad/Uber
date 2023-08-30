@@ -55,14 +55,14 @@ public class ConsoleUi {
 
     public void CustomerDataEntery() {
 
-        currentCustomer = new Customer();
+        currentCustomer = Customer.getInstance();  // NEW
         paymentController paymentcontrol= new paymentController();
         paymentcontrol.setStrategy(currentCustomer);
     }
 
     public void DriverDataEntery() {
 
-            currentDriver = new Driver();
+            currentDriver = Driver.getInstance();
 
         }
 
@@ -91,29 +91,47 @@ public class ConsoleUi {
     public  void requestARide() {
         Ride RuquestedRide;
 
-        System.out.print("From:");
-        String from = scanner.nextLine();
-        System.out.print("To:");
-        String to = scanner.nextLine();
+        System.out.println("1] From Home to Work\n2] From Work to Home\n3] Others");
+        int choice = scanner.nextInt();
+        if(choice == 3) {
+            System.out.print("From:");
+            String from = scanner.nextLine();
+            System.out.print("To:");
+            String to = scanner.nextLine();
+        }
+
+//        System.out.println("1] Default Transportation\n2] Others");
+//        choice = scanner.nextInt();
+
         System.out.print("Rides.Ride type: (Bus - Car - Scooter)");
         String rideType = scanner.nextLine();
 
-        float _distance_ = 0 ; // Will Change According to ABO Graph
+        float _distance_ = 0; // Will Change According to ABO Graph
 
-        if(rideType.equals("bus"))
+        if(rideType.equals("bus") && choice == 1)
             RuquestedRide = new BusRide(_distance_);
         else if (rideType.equals("car"))
             RuquestedRide = new CarRide(_distance_);
         else
             RuquestedRide = new ScooterRide(_distance_);
 
-        float totalPrice = RuquestedRide.CalculatePrice(_distance_);
+        // WE will discuss with Whole TEAM
+        /*
+        if(choice == 1) {
+            RuquestedRide = RuquestedRide.SetRoute(currentCustomer.Home, currentCustomer.Work);
+        }
+        else if (choice == 2){
+            RuquestedRide = RuquestedRide.SetRoute(currentCustomer.Work, currentCustomer.Home);
+        }*/
 
+
+        float totalPrice = RuquestedRide.CalculatePrice(_distance_);
         System.out.println("TotalPrice($):" + totalPrice);
 
+
         System.out.println("Request? (y/n)");
-        char choice = scanner.next().charAt(0);
-        if(choice == 'y')
+        char choiceChar = scanner.next().charAt(0);
+        if(choiceChar == 'y')
         {
             PaymentValidation(totalPrice);
         }
@@ -131,8 +149,11 @@ public class ConsoleUi {
     public  void logout() {
         System.out.println("Do you really want to logout ? (y/n)");
         char choice = scanner.next().charAt(0);
-        if(choice == 'y')
+        if(choice == 'y') {
+            currentCustomer = null; //NEW
+            currentDriver = null;   //NEW
             startPage();
+        }
         else
             customerHomePage();
     }

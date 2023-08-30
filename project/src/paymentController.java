@@ -20,9 +20,6 @@ public class paymentController {
             this.paymentStrategy= new credit_card(creditCardNumber,CVV);
         }
 
-
-
-
         customer.payer = paymentStrategy;
     }
 
@@ -37,6 +34,5 @@ public class paymentController {
     public void deductBalance(double amount){
          this.paymentStrategy.deductBalance(amount);
     }
-
 
 }

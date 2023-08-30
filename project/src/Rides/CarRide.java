@@ -1,7 +1,7 @@
 package Rides;
 
 public class CarRide extends Ride {
-    float pricePerKM;
+    float pricePerKM = 10;
 
     public CarRide(float distance) {
         super(distance);
@@ -9,6 +9,6 @@ public class CarRide extends Ride {
 
     @Override
     public float CalculatePrice(float distance) {
-        return distance * pricePerKM ;
+        return distance * pricePerKM;
     }
 }
