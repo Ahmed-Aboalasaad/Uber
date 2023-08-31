@@ -28,7 +28,10 @@ public class Graph {
     public int getVertexNum() {
         return citiesNum;
     }
-    public int getOutEdgesNumber(String city) {
+    public Set<String> getCitiesNames() {
+        return (map.keySet());
+    }
+    public int getOutRoadsNumber(String city) {
         int counter = 0;
         AdjacencyList adjacents = getOutAdjacents(city);
 

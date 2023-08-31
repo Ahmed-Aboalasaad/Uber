@@ -2,9 +2,9 @@ package Graph;
 
 public class Road {
     public String destination;
-    public int distance;
+    public float distance;
 
-    public Road(String source, int distance) {
+    public Road(String source, float distance) {
         this.destination = source;
         this.distance = distance;
     }
