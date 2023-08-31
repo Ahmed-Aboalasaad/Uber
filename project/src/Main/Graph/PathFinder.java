@@ -1,4 +1,4 @@
-package Graph;
+package Main.Graph;
 
 import java.util.*;
 
@@ -14,17 +14,19 @@ public class PathFinder {
     HashMap<String, String> previousNode = new HashMap<>();
     Stack<Road> path = new Stack<>();
 
-    PathFinder(Graph graph, String startNode, String targetNode, Stack<Road> path) {
+    PathFinder(Graph graph, Stack<Road> path) {
         this.graph = graph;
         this.path = path;
     }
 
+    float find(String source, String destination) {
+
+    }
+
     /**
      * finds the shortest path between 2 nodes in a graph
-     * @param graph the graph
      * @param startNode source
      * @param targetNode destination
-     * @param path a stack of roads to be filled with the detailed path
      * @return the total distance of the path
      */
     private float Dijkstra(String startNode, String targetNode) {
@@ -59,7 +61,9 @@ public class PathFinder {
         return shortestPath.get(targetNode);
     }
 
-    fillPath (Graph graph, String StartNode, String targetNode, HashMap<String, String> previousNode)
+    fillPath (Graph graph, String StartNode, String targetNode, HashMap<String, String> previousNode) {
+
+    }
 
 
 }

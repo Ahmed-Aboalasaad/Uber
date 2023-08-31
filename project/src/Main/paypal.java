@@ -1,7 +1,11 @@
+package Main;
+
+import Main.User.Customer;
+
 public class paypal implements paymentStrategy {
     String accountNumber ;
     String password;
-    double balance;
+    public double balance;
 
     public paypal(String accountNumber, String password) {
         this.accountNumber = accountNumber;
@@ -27,5 +31,7 @@ public class paypal implements paymentStrategy {
     this.balance -= amount;
     }
 
-
+    public void Refund(Customer customer, Double amount){
+        balance += amount;
+    }
 }

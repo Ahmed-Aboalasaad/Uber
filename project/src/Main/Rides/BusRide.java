@@ -1,12 +1,12 @@
-package Rides;
+package Main.Rides;
 
 import java.util.ArrayList;
+import Main.User.*;
 
 
+public class BusRide extends Ride implements BusReservation {
 
-public class BusRide extends Ride implements BusReservation{
-
-    // ADD Customer Package !!!!
+    // ADD Main.Main.Rides.User.Customer Package !!!!
     ArrayList <Customer> customerList = new ArrayList<Customer>();
 
     Double MinimumCharge;
@@ -39,13 +39,11 @@ public class BusRide extends Ride implements BusReservation{
         double latestPrice = customerList.get(customerList.size()-1).ReservationPrice;
         for (Customer customer : customerList){
             if(latestPrice != customer.ReservationPrice){
-                Refund(customer,customer.ReservationPrice - latestPrice);
+                customer.payer.Refund(customer,customer.ReservationPrice - latestPrice);
             }
         }
     }
 
-    public void Refund(Customer customer, Double amount){
-        customer.payer.balance += amount;
-    }
+
 
 }

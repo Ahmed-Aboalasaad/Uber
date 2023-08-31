@@ -1,3 +1,7 @@
+package Main.User;
+
+import Main.*;
+
 import java.util.Scanner;
 public class Customer extends Person {
 
@@ -15,8 +19,8 @@ public class Customer extends Person {
         return currentCustomer;
     }
 
-    boolean ReservABus;
-    Double  ReservationPrice;
+    public boolean ReservABus;
+    public Double  ReservationPrice;
 
     public Customer(){
         super();
@@ -29,7 +33,7 @@ public class Customer extends Person {
     Customer nCustomer = new Customer();
 
     Scanner scanner = new Scanner(System.in);
-    System.out.println("Hi Customer, Please enter the following data:");
+    System.out.println("Hi Main.Main.Rides.User.Customer, Please enter the following data:");
     System.out.print("Name:");
     nCustomer.Name = scanner.nextLine();
     System.out.print("Age:");

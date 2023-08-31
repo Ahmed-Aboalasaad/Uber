@@ -1,4 +1,4 @@
-package Graph;
+package Main.Graph;
 
 public class Road {
     public String destination;

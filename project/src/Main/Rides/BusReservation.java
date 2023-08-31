@@ -1,4 +1,4 @@
-package Rides;
+package Main.Rides;
 
 public interface BusReservation {
 

@@ -1,3 +1,7 @@
+package Main;
+
+import Main.User.Customer;
+
 import java.util.Scanner;
 
 public class paymentController {
@@ -7,7 +11,7 @@ public class paymentController {
     public void setStrategy(Customer customer){
         Scanner scanner = new Scanner(System.in);
 
-        if (customer.paymentMethodtype.equals("paypal")){
+        if (customer.paymentMethodtype.equals("Main.paypal")){
             String paypalNumber = scanner.nextLine();
             String paypalPassword = scanner.nextLine();
 
@@ -35,4 +39,7 @@ public class paymentController {
          this.paymentStrategy.deductBalance(amount);
     }
 
+    public void Refund(Customer customer, Double amount){
+        this.paymentStrategy.Refund(customer, amount);
+    }
 }

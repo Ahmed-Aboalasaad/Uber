@@ -1,7 +1,8 @@
-import Rides.BusRide;
-import Rides.CarRide;
-import Rides.Ride;
-import Rides.ScooterRide;
+package Main;
+
+import Main.Rides.*;
+import Main.User.Customer;
+import Main.User.Driver;
 
 import java.util.Scanner;
 
@@ -29,17 +30,17 @@ public class ConsoleUi {
     }
 
     public void driverHomePage() {
-        System.out.println("1] Rides history");
-        System.out.println("2] Customer Support");
+        System.out.println("1] Main.Main.Rides history");
+        System.out.println("2] Main.Main.Rides.User.Customer Support");
         System.out.println("3] Logout");
 
         int choice = scanner.nextInt();
         scanner.nextLine(); // Consume the newline character
 
         if (choice == 1) {
-            System.out.println("This is Rides.Ride History");
+            System.out.println("This is Main.Main.Rides.Ride History");
         } else if (choice==2) {
-            System.out.println("This is Rides.Ride Customer Support");
+            System.out.println("This is Main.Main.Rides.Ride Main.Main.Rides.User.Customer Support");
         }
         else if (choice==3) {
             logout();
@@ -67,8 +68,8 @@ public class ConsoleUi {
         }
 
     public void newAccount() {
-        System.out.println("Welcome To Uber, Are you Customer or Driver ?");
-        System.out.println("1] Customer\t2] Driver");
+        System.out.println("Welcome To Uber, Are you Main.Main.Rides.User.Customer or Main.Main.Rides.User.Driver ?");
+        System.out.println("1] Main.Main.Rides.User.Customer\t2] Main.Main.Rides.User.Driver");
         int choice = scanner.nextInt();
         scanner.nextLine();
 
@@ -103,10 +104,10 @@ public class ConsoleUi {
 //        System.out.println("1] Default Transportation\n2] Others");
 //        choice = scanner.nextInt();
 
-        System.out.print("Rides.Ride type: (Bus - Car - Scooter)");
+        System.out.print("Main.Main.Rides.Ride type: (Bus - Car - Scooter)");
         String rideType = scanner.nextLine();
 
-        float _distance_ = 0; // Will Change According to ABO Graph
+        float _distance_ = 0; // Will Change According to ABO Main.Main.Rides.Graph
 
         if(rideType.equals("bus") && choice == 1)
             RuquestedRide = new BusRide(_distance_);
@@ -160,8 +161,8 @@ public class ConsoleUi {
 
     public  void customerHomePage() {
         System.out.println("1] Request a ride");
-        System.out.println("2] Rides history");
-        System.out.println("3] Customer Support");
+        System.out.println("2] Main.Main.Rides history");
+        System.out.println("3] Main.Main.Rides.User.Customer Support");
         System.out.println("4] Logout");
 
         int choice = scanner.nextInt();
@@ -186,7 +187,7 @@ public class ConsoleUi {
     }
 
     public void RideHistory() {
-        System.out.println("You have " + currentCustomer.RidesCount + " Rides:\n1- Cairo - Alex - 400km - 30$ - Car\n2- Aswan - Poirsaid - 900km - 270$ - Bus\n");
+        System.out.println("You have " + currentCustomer.RidesCount + " Main.Main.Rides:\n1- Cairo - Alex - 400km - 30$ - Car\n2- Aswan - Poirsaid - 900km - 270$ - Bus\n");
         System.out.print("1]Clear\t2]Back\n");
         int choice = scanner.nextInt();
         scanner.nextLine();
@@ -266,7 +267,7 @@ public class ConsoleUi {
                 System.out.println("Transaction Complete");
                 currentCustomer.RidesCount++;
 
-                System.out.println("Rides.Ride Done, Thank you to use Uber.\n[0: Home Page]\t[2: Rate Driver]");
+                System.out.println("Main.Main.Rides.Ride Done, Thank you to use Uber.\n[0: Home Page]\t[2: Rate Main.Main.Rides.User.Driver]");
 
                 int choice2 = scanner.nextInt();
                 scanner.nextLine();

@@ -1,8 +1,12 @@
+package Main;
+
+import Main.User.Customer;
+
 public class credit_card implements paymentStrategy  {
 
 String creditCardNumber;
 String CVV;
-double balance;
+public double balance;
 
 
     public credit_card(String creditCardNumber, String CVV) {
@@ -27,5 +31,7 @@ double balance;
         this.balance -= amount;
     }
 
-
+    public void Refund(Customer customer, Double amount){
+        balance += amount;
+    }
 }

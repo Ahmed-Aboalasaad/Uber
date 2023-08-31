@@ -1,4 +1,4 @@
-package Rides;
+package Main.Rides;
 
 public abstract class Ride {
     float distance ;
@@ -18,15 +18,15 @@ public abstract class Ride {
         return this;
     }
 
-    //May Edit in ConsoleUi > requestARide
+    //May Edit in Main.ConsoleUi > requestARide
     /*
-    public Rides.Ride ChooseRide(Rides.Ride RuquestedRide, String type){
+    public Main.Main.Rides.Ride ChooseRide(Main.Main.Rides.Ride RuquestedRide, String type){
         if(type.equals("bus"))
-            RuquestedRide = new Rides.BusRide(distance);
+            RuquestedRide = new Main.Main.Rides.BusRide(distance);
         else if (type.equals("car"))
-            RuquestedRide = new Rides.CarRide(distance);
+            RuquestedRide = new Main.Main.Rides.CarRide(distance);
         else
-            RuquestedRide = new Rides.ScooterRide(distance);
+            RuquestedRide = new Main.Main.Rides.ScooterRide(distance);
 
         return RuquestedRide;
     }

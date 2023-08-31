@@ -1,3 +1,7 @@
+package Main;
+
+import Main.User.Driver;
+
 import java.io.*;
 import java.util.LinkedList;
 
@@ -5,7 +9,7 @@ import java.util.LinkedList;
 public class DriverSavedData {
     public static LinkedList<Driver> driverList = new LinkedList<>();
     public static void ReadDriverData() throws IOException {
-      BufferedReader Reader = new BufferedReader(new FileReader("C:\\Users\\Adham\\IdeaProjects\\Uber\\project\\src\\UserData\\Driver.txt"));
+      BufferedReader Reader = new BufferedReader(new FileReader("C:\\Users\\Adham\\IdeaProjects\\Uber\\project\\src\\Main.Main.Rides.UserData\\Main.Main.Rides.User.Driver.txt"));
       String line;
       while((line = Reader.readLine()) != null){
           Driver newDriver = new Driver();
@@ -27,7 +31,7 @@ public class DriverSavedData {
 
    }
    public static void WriteDriverdata() throws IOException {
-        BufferedWriter DriverData = new BufferedWriter(new FileWriter("C:\\Users\\Adham\\IdeaProjects\\Uber\\project\\src\\UserData\\Driver.txt"));
+        BufferedWriter DriverData = new BufferedWriter(new FileWriter("C:\\Users\\Adham\\IdeaProjects\\Uber\\project\\src\\Main.Main.Rides.UserData\\Main.Main.Rides.User.Driver.txt"));
 
         for(int i = 0 ; i < driverList.size(); i ++) {
            DriverData.append(driverList.get(i).Name + "\n" + driverList.get(i).Age);

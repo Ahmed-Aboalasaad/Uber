@@ -1,9 +1,9 @@
-package Rides;
+package Main.Rides;
 
-public class ScooterRide extends Ride {
-    float pricePerKM = 5;
+public class CarRide extends Ride {
+    float pricePerKM = 10;
 
-    public ScooterRide(float distance) {
+    public CarRide(float distance) {
         super(distance);
     }
 

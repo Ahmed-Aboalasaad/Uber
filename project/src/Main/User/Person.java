@@ -1,10 +1,12 @@
+package Main.User;
+
 public  abstract class Person {
 
     String Name;
     short Age;
     String Uber_Mail;
     String Uber_Password;
-    int RidesCount = 0;
+    public int RidesCount = 0;
 
     public Person(){}
 

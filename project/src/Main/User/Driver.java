@@ -1,3 +1,4 @@
+package Main.User;
 
 import java.util.Scanner;
 public class Driver  extends Person {
@@ -27,7 +28,7 @@ public class Driver  extends Person {
     public void form(){
         Driver nDriver = new Driver();
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Hi Driver, Please enter the following data:");
+        System.out.println("Hi Main.Main.Rides.User.Driver, Please enter the following data:");
         System.out.print("Name:");
         nDriver.Name = scanner.nextLine();
         System.out.print("Age:");
