@@ -27,7 +27,7 @@ public class ReservedRidesData {
             newbusride.ticketPrice = Float.parseFloat(Reader.readLine());
             newbusride.oldticketprice = Float.parseFloat(Reader.readLine());
            for(Customer revcustomer:customerList){
-               if(Reader.readLine().equals(revcustomer.Uber_Mail) & Reader.readLine().equals(revcustomer.Uber_Password))
+               if(revcustomer.ReservedBusRide == newbusride.BusRideId)
            newbusride.revcustomerList.add(revcustomer);
            }
 
@@ -58,10 +58,7 @@ public class ReservedRidesData {
             BusRideData.append("\n" + Busrideslist.get(i).Maxcharge + "\n" + Busrideslist.get(i).reservationsCount);
             BusRideData.append("\n" + Busrideslist.get(i).capacity + "\n" + Busrideslist.get(i).ticketPrice);
             BusRideData.append("\n" + Busrideslist.get(i).oldticketprice + "\n");
-            for (Customer savedCustomer : Busrideslist.get(i).revcustomerList) {
-                BusRideData.append("\n" + savedCustomer.Uber_Mail + "\n");
-                BusRideData.append("\n" + savedCustomer.Uber_Password + "\n");
-            }
+
         }
         BusRideData.close();
 
