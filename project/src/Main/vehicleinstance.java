@@ -4,8 +4,8 @@ public class vehicleinstance {
     public String vehicleModel;
     public String vehicleType;
     public String vehicleNumber;
-
     public  int vehiclecapacity;
+
     public void setmodel(String model){
         this.vehicleModel = model;
     }

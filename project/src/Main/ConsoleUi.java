@@ -3,9 +3,7 @@ package Main;
 import Main.Rides.*;
 import Main.User.Customer;
 import Main.User.Driver;
-import Main.DriverSavedData.*;
-import Main.CustomerSavedData.*;
-import Main.ReservedRidesData.*;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -23,7 +21,7 @@ public class ConsoleUi {
     Driver currentDriver;
 
     ArrayList<vehicleinstance.vehicle> vehiclelist= new ArrayList<vehicleinstance.vehicle>();
-    vehicleinstance registeredvh = new vehicleinstance();
+    vehicleinstance registeredVehicle = new vehicleinstance();
 
   /**
      * Populates the list of available vehicles by iterating through the list of drivers and their vehicles.
@@ -32,15 +30,14 @@ public class ConsoleUi {
      */
   public void availablevhlist(){
 
-      for(Driver avdriver: driverList){
-      registeredvh.setmodel(avdriver.vehicleModel);
-      registeredvh.setVehiclecapacity(avdriver.vehiclecapacity);
-      registeredvh.setVehicleNumber(avdriver.vehicleNumber);
-      registeredvh.setVehicleType(avdriver.vehicleType);
+      for(Driver availableDriver: driverList){
+      registeredVehicle.setmodel(availableDriver.vehicleModel);
+      registeredVehicle.setVehiclecapacity(availableDriver.vehiclecapacity);
+      registeredVehicle.setVehicleNumber(availableDriver.vehicleNumber);
+      registeredVehicle.setVehicleType(availableDriver.vehicleType);
 
-      vehiclelist.add(registeredvh.build());
-
-      registeredvh.reset();
+      vehiclelist.add(registeredVehicle.build());
+      registeredVehicle.reset();
       }
   }
 
@@ -147,21 +144,31 @@ public class ConsoleUi {
 
         System.out.println("1] From Home to Work\n2] From Work to Home\n3] Others");
         int choice = scanner.nextInt();
+        String from =null;
+        String to = null;
+
+        if(choice == 1)
+        {
+            from = currentCustomer.Home;
+            to = currentCustomer.Work;
+        } else if (choice == 2) {
+            to = currentCustomer.Home;
+            from = currentCustomer.Work;
+        }
         if(choice == 3) {
             System.out.print("From:");
-            String from = scanner.nextLine();
+            from= scanner.nextLine();
             System.out.print("To:");
-            String to = scanner.nextLine();
+            to = scanner.nextLine();
         }
 
-
-        System.out.print("Main.Main.Rides.Ride type: (Bus - Car - Scooter)");
+        System.out.print("Ride type: (Bus - Car - Scooter)");
         String rideType = scanner.nextLine();
 
         float _distance_ = 0; // Will Change According to ABO Main.Main.Rides.Graph
 
-        if(rideType.equals("bus") && choice == 1){
-            vehicleinstance.vehicle chosenbus;
+        if(rideType.equals("bus")){
+            vehicleinstance.vehicle chosenBus;
             ArrayList<vehicleinstance.vehicle> avbuses = new ArrayList<vehicleinstance.vehicle>();
             for(vehicleinstance.vehicle currentvh: vehiclelist){
 
@@ -171,24 +178,24 @@ public class ConsoleUi {
             }
             int numvh = 0;
 
-            for(vehicleinstance.vehicle eligible:avbuses){
+            for(vehicleinstance.vehicle eligible : avbuses){
                 System.out.println(++numvh + "." + eligible.toString());
             }
-            System.out.println("enter the number of your choice");
-            int busid = scanner.nextInt();
+            System.out.println("Enter the number of your choice");
+            int busId = scanner.nextInt();
 
-            chosenbus = avbuses.get(busid-1);
-            RequestedRide = new BusRide(_distance_,chosenbus.vehiclecapacity);
-            RequestedRide.SetRoute(currentCustomer.Home, currentCustomer.Work);
-             ((BusRide) RequestedRide).assignedvhmodel = chosenbus.vehicleModel; // compiler made this I don't why
-             ((BusRide) RequestedRide).assignedvhnumber = chosenbus.vehicleNumber;
+            chosenBus = avbuses.get(busId-1);
+            RequestedRide = new BusRide(_distance_,chosenBus.vehiclecapacity);
+            RequestedRide.SetRoute(from, to);
+             ((BusRide) RequestedRide).assignedvhmodel = chosenBus.vehicleModel; // compiler made this I don't why
+             ((BusRide) RequestedRide).assignedvhnumber = chosenBus.vehicleNumber;
         }
         else if (rideType.equals("car")){
             vehicleinstance.vehicle chosencar;
             ArrayList<vehicleinstance.vehicle> avcars= new ArrayList<vehicleinstance.vehicle>();
             for(vehicleinstance.vehicle currentvh: vehiclelist){
 
-                if(currentvh.vehiclecapacity <=4 & currentvh.vehiclecapacity>=6){
+                if(currentvh.vehiclecapacity >=4 & currentvh.vehiclecapacity<=6){
                     avcars.add(currentvh);
                 }
             }
@@ -203,10 +210,9 @@ public class ConsoleUi {
             chosencar = avcars.get(carid-1);
 
             RequestedRide = new CarRide(_distance_);
-            RequestedRide.SetRoute(currentCustomer.Home, currentCustomer.Work);}
+            RequestedRide.SetRoute(from, to);}
         else{
-
-            vehicleinstance.vehicle chosenscouter;
+        vehicleinstance.vehicle chosenscouter;
         ArrayList<vehicleinstance.vehicle> avscouters = new ArrayList<vehicleinstance.vehicle>();
         for(vehicleinstance.vehicle currentvh: vehiclelist){
 
@@ -224,9 +230,8 @@ public class ConsoleUi {
 
         chosenscouter= avscouters.get(scouterid-1);
             RequestedRide = new ScooterRide(_distance_);
-            RequestedRide.SetRoute(currentCustomer.Home, currentCustomer.Work);}
-
-
+            RequestedRide.SetRoute(from, to);
+        }
 
         float totalPrice = RequestedRide.CalculatePrice(_distance_);
         System.out.println("TotalPrice($):" + totalPrice);
