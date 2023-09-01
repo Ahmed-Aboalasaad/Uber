@@ -3,6 +3,12 @@ package Main.User;
 import Main.*;
 
 import java.util.Scanner;
+
+/**
+ * The Customer class represents a user who can make reservations for bus rides.
+ * This class extends the Person class and adds additional properties and methods
+ * specific to a customer's behavior.
+ */
 public class Customer extends Person {
 
     public String Home;
@@ -12,6 +18,12 @@ public class Customer extends Person {
 
     private static Customer currentCustomer = null;
 
+    /**
+     * Returns the singleton instance of the Customer class.
+     * If the instance doesn't exist, creates a new instance and returns it.
+     *
+     * @return The current customer instance.
+     */
     public static Customer getInstance(){
         if(currentCustomer == null){
             currentCustomer = new Customer();
@@ -28,7 +40,11 @@ public class Customer extends Person {
        // this.form();
     }
 
-
+/**
+     * Collects user input to fill in the customer's information and saves it.
+     * Prompts the user to enter the customer's name, age, email, password, home,
+     * work, and payment method.
+     */
 @Override
     public void form(){
     Customer nCustomer = new Customer();

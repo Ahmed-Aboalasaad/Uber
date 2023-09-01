@@ -2,6 +2,12 @@
 package Main.User;
 import Main.*;
 import java.util.Scanner;
+
+/**
+ * The Driver class represents a user who is also a driver for the ride-sharing service.
+ * This class extends the Person class and adds additional properties and methods
+ * specific to a driver's information and behavior.
+ */
 public class Driver  extends Person {
     public String licence;
     public String licenceType;
@@ -13,6 +19,12 @@ public class Driver  extends Person {
 
     private static Driver currentDriver = null;
 
+    /**
+     * Returns the singleton instance of the Driver class.
+     * If the instance doesn't exist, creates a new instance and returns it.
+     *
+     * @return The current driver instance.
+     */
     public static Driver getInstance(){
         if(currentDriver == null){
             currentDriver = new Driver();
@@ -21,13 +33,21 @@ public class Driver  extends Person {
         return currentDriver;
     }
 
-
+    /**
+     * Private constructor to prevent external instantiation of Driver.
+     * Use getInstance() method to obtain the current driver instance.
+     */
     public Driver(){
 
         super();
         //this.form();
     }
 
+    /**
+     * Collects user input to fill in the driver's information and saves it.
+     * Prompts the user to enter the driver's name, age, email, password, license,
+     * license type, vehicle model, vehicle type, vehicle number, and vehicle capacity.
+     */
     @Override
     public void form(){
         Driver nDriver = new Driver();

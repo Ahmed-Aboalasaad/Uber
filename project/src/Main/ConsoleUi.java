@@ -10,6 +10,10 @@ import java.util.Scanner;
 import static Main.CustomerSavedData.customerList;
 import static Main.ReservedRidesData.Busrideslist;
 
+/**
+ * The Console UI for the Uber System
+ * All the Displayed functions and methods
+ */
 public class ConsoleUi {
     public static Scanner scanner = new Scanner(System.in);
     Customer currentCustomer;
@@ -17,6 +21,12 @@ public class ConsoleUi {
 
     ArrayList<vehicleinstance.vehicle> vehiclelist= new ArrayList<vehicleinstance.vehicle>();
     vehicleinstance registeredvh = new vehicleinstance();
+
+  /**
+     * Populates the list of available vehicles by iterating through the list of drivers and their vehicles.
+     * For each driver, a vehicle is registered with its model, capacity, number, and type,
+     * and added to the list of available vehicles.
+     */
   public void availablevhlist(){
 
       for(Driver avdriver:DriverSavedData.driverList){
@@ -32,6 +42,9 @@ public class ConsoleUi {
   }
 
 
+    /**
+     * Main Screen of Uber System
+     */
     public void startPage() {
         System.out.println("Welcome To Uber System");
         System.out.println("1] Login");
@@ -50,6 +63,10 @@ public class ConsoleUi {
         }
     }
 
+    /**
+     * Home Page for driver with options for ride history, customer support, and logout.
+     *
+     */
     public void driverHomePage() {
         System.out.println("1] Main.Main.Rides history");
         System.out.println("2] Main.Main.Rides.User.Customer Support");
@@ -75,6 +92,9 @@ public class ConsoleUi {
         }
     }
 
+    /**
+     * Collects customer data for account creation.
+     */
     public void CustomerDataEntery() {
 
         currentCustomer = Customer.getInstance();  // NEW
@@ -82,12 +102,18 @@ public class ConsoleUi {
         paymentcontrol.setStrategy(currentCustomer);
     }
 
+    /**
+     * Collects driver data for account creation.
+     */
     public void DriverDataEntery() {
 
             currentDriver = Driver.getInstance();
 
         }
 
+    /**
+     * Handles the process of creating a new account.
+     */
     public void newAccount() {
         System.out.println("Welcome To Uber, Are you Main.Main.Rides.User.Customer or Main.Main.Rides.User.Driver ?");
         System.out.println("1] Main.Main.Rides.User.Customer\t2] Main.Main.Rides.User.Driver");
@@ -110,6 +136,9 @@ public class ConsoleUi {
         }
     }
 
+    /**
+     * Represents the process of requesting a ride.
+     */
     public  void requestARide() {
 
 
@@ -218,6 +247,9 @@ public class ConsoleUi {
         }
     }
 
+    /**
+     * Displays the page for rating a driver and providing feedback.
+     */
     public  void RateDiverPage() {
         System.out.print("Enter Number of Start (1 - 5)\n");
         int rate = scanner.nextInt();
@@ -227,18 +259,38 @@ public class ConsoleUi {
         System.out.print("Thank you for the feedback, Wishes to you a good day\n");
     }
 
-    public  void logout() {
-        System.out.println("Do you really want to logout ? (y/n)");
-        char choice = scanner.next().charAt(0);
-        if(choice == 'y') {
-            currentCustomer = null; //NEW
-            currentDriver = null;   //NEW
-            startPage();
-        }
-        else
-            customerHomePage();
+
+    /**
+     * Displays the page for rating a driver and providing feedback.
+     */
+    public void RateDriverPage() {
+        System.out.print("Enter Number of Stars (1 - 5)\n");
+        int rate = scanner.nextInt();
+        scanner.nextLine();
+        System.out.print("Enter Feedback Message\n");
+        String message = scanner.nextLine();
+        System.out.print("Thank you for the feedback. Wishing you a good day!\n");
     }
 
+    /**
+     * Logs out the current user and returns to the start page or customer home page.
+     */
+    public void logout() {
+        System.out.println("Do you really want to log out? (y/n)");
+        char choice = scanner.next().charAt(0);
+        if (choice == 'y') {
+            currentCustomer = null; // Reset currentCustomer
+            currentDriver = null;   // Reset currentDriver
+            startPage();
+        } else {
+            customerHomePage();
+        }
+    }
+
+    /**
+     * Displays the customer's home page with new notifications.
+     * Updates ticket prices for reserved bus rides if applicable.
+     */
     public  void customerHomePage() {
       System.out.println("New Notifications:");
       if(currentCustomer.ReservABus){
@@ -276,6 +328,9 @@ public class ConsoleUi {
 
     }
 
+    /**
+     * Displays the ride history for the current customer, allowing them to clear it if desired.
+     */
     public void RideHistory() {
         System.out.println("You have " + currentCustomer.RidesCount + " Main.Main.Rides:\n1- Cairo - Alex - 400km - 30$ - Car\n2- Aswan - Poirsaid - 900km - 270$ - Bus\n");
         System.out.print("1]Clear\t2]Back\n");
@@ -290,6 +345,10 @@ public class ConsoleUi {
             customerHomePage();
     }
 
+    /**
+     * Displays the login page where the user can enter their email and password to log in.
+     * If successful, sets the current customer and displays the customer home page.
+     */
     public void loginPage() {
         System.out.print("Email:");
         String userMail = scanner.nextLine();
@@ -305,6 +364,10 @@ public class ConsoleUi {
         customerHomePage();
     }
 
+    /**
+     * Displays a list of frequently asked questions (FAQs) related to customer support and provides answers.
+     * Allows the user to select a question and read its corresponding answer.
+     */
     public void CustomerSupport() {
         System.out.println("Q1: How do I request a ride?\n" +
                 "Q2: How do I pay for my ride?\n" +
@@ -348,6 +411,11 @@ public class ConsoleUi {
         }
     }
 
+    /**
+     * Validates payment details and processes the payment for a ride.
+     *
+     * @param totalPrice The total price of the ride.
+     */
     public void PaymentValidation(float totalPrice){
         paymentController paymentMethod = new paymentController();
         paymentMethod.setStrategy(currentCustomer);
