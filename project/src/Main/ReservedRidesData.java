@@ -17,6 +17,9 @@ public class ReservedRidesData {
             newbusride.From = line;
             newbusride.To = Reader.readLine();
             newbusride.distance = Float.parseFloat(Reader.readLine());
+            BusRide.Idtracker = Integer.parseInt(Reader.readLine());
+            newbusride.BusRideId = Integer.parseInt(Reader.readLine());
+            newbusride.stillavailable = (Reader.readLine().equals("True") || Reader.readLine().equals("true")) ? true : false;
             newbusride.MinimumCharge = Float.parseFloat(Reader.readLine());
             newbusride.Maxcharge = Float.parseFloat(Reader.readLine());
             newbusride.reservationsCount= Integer.parseInt(Reader.readLine());
@@ -39,8 +42,18 @@ public class ReservedRidesData {
     public static void WriteDriverdata() throws IOException {
         BufferedWriter BusRideData = new BufferedWriter(new FileWriter("C:\\Users\\Adham\\IdeaProjects\\Uber\\project\\src\\Main.Main.Rides.UserData\\Main.Main.Rides.User.Driver.txt"));
 
+        for(BusRide checkride:Busrideslist){
+            if(checkride.revcustomerList.isEmpty()){
+               Busrideslist.remove(checkride);}
+            else if (checkride.reservationsCount < (checkride.capacity*(1/4)) ){
+                checkride.stillavailable = false;
+            }
+        }
+
         for (int i = 0; i < Busrideslist.size(); i++) {
             BusRideData.append(Busrideslist.get(i).From + "\n" + Busrideslist.get(i).To);
+            BusRideData.append(BusRide.Idtracker+ "\n" + Busrideslist.get(i).BusRideId);
+            BusRideData.append(Busrideslist.get(i).stillavailable.toString()+ "\n" );
             BusRideData.append("\n" + Busrideslist.get(i).distance + "\n" + Busrideslist.get(i).MinimumCharge);
             BusRideData.append("\n" + Busrideslist.get(i).Maxcharge + "\n" + Busrideslist.get(i).reservationsCount);
             BusRideData.append("\n" + Busrideslist.get(i).capacity + "\n" + Busrideslist.get(i).ticketPrice);

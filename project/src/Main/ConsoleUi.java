@@ -244,7 +244,8 @@ public class ConsoleUi {
       if(currentCustomer.ReservABus){
           for( BusRide sob:Busrideslist){
               if(currentCustomer.ReservedBusRide == sob.BusRideId){
-                  sob.UpdateTicketPrice();
+                  sob.checkavailability(currentCustomer);
+                  break;
               }
           }
       }

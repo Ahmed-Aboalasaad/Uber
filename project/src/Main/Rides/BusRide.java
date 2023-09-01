@@ -13,6 +13,8 @@ public class BusRide extends Ride implements BusReservation {
    public ArrayList <Customer> revcustomerList = new ArrayList<Customer>();
 
    public static int Idtracker = 1;
+
+   public Boolean stillavailable = true;
    public int BusRideId;
     public float MinimumCharge;
 
@@ -74,8 +76,6 @@ public BusRide(){super();}
                     + oldticketprice + " to "+ ticketPrice);
 
             System.out.println((oldticketprice-ticketPrice)+" were deducted from your account");
-        }else{
-            System.out.println("your trip to "+ From+" awaits you");
         }
 
 
@@ -97,6 +97,15 @@ public BusRide(){super();}
         maderefund = true;
     }
 
+    public void processrefund(Customer customer){
+        customer.payer.Refund(customer,(double)this.ticketPrice);
+
+        customer.ReservABus = false;
+        customer.ReservedBusRide = 0;
+        revcustomerList.remove(customer);
+        System.out.println("the trip was cancelled and "+ this.ticketPrice +" were refunded to your account");
+    }
+
     public void processtakeaddition(){
         for(Customer customer:revcustomerList){
             customer.payer.deductBalance((double)(oldticketprice - ticketPrice));
@@ -104,6 +113,14 @@ public BusRide(){super();}
 
         tookaddition = true;
     }
+   public void checkavailability(Customer customer){
+        if(this.stillavailable){
+            UpdateTicketPrice();
+            System.out.println("\nyour trip awaits");
+        }else{
+           processrefund(customer);
+        }
+   }
 
 
 }
