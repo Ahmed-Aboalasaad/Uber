@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import static Main.CustomerSavedData.customerList;
+import static Main.DriverSavedData.driverList;
 import static Main.ReservedRidesData.Busrideslist;
 
 public class ConsoleUi {
@@ -19,7 +20,7 @@ public class ConsoleUi {
     vehicleinstance registeredvh = new vehicleinstance();
   public void availablevhlist(){
 
-      for(Driver avdriver:DriverSavedData.driverList){
+      for(Driver avdriver: driverList){
       registeredvh.setmodel(avdriver.vehicleModel);
       registeredvh.setVehiclecapacity(avdriver.vehiclecapacity);
       registeredvh.setVehicleNumber(avdriver.vehicleNumber);
@@ -294,6 +295,7 @@ public class ConsoleUi {
     }
 
     public void loginPage() {
+
         System.out.print("Email:");
         String userMail = scanner.nextLine();
         System.out.print("Password:");
@@ -305,7 +307,21 @@ public class ConsoleUi {
                 break;
             }
         }
-        customerHomePage();
+
+        for(Driver loggedin:driverList){
+            if(loggedin.Uber_Mail.equals(userMail) & loggedin.Uber_Password.equals(userPassword))
+            {
+                currentDriver = loggedin;
+                break;
+            }
+        }
+
+        if(currentCustomer != null){
+            customerHomePage();
+            return;
+        }
+        // we didn't make a driver homepage
+
     }
 
     public void CustomerSupport() {
