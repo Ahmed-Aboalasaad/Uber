@@ -1,5 +1,9 @@
 package Main;
 
+import Main.User.Driver;
+
+import static Main.DriverSavedData.driverList;
+
 public class vehicleinstance {
     public String vehicleModel;
     public String vehicleType;
@@ -42,10 +46,22 @@ public class vehicleinstance {
             this.vehicleNumber = vehicleNumber;
             this.vehiclecapacity = vehiclecapacity;
         }
+public double getdriverrating(){
+            Driver vhdriver = null;
+            for(Driver cudrivers:driverList){
+                if(cudrivers.vehicleNumber.equals(this.vehicleNumber)){
+                    vhdriver = cudrivers;
+                    break;
+                }
+            }
+
+
+            return (vhdriver.totalrates/ vhdriver.numofrates);
+}
 
         @Override
         public String toString(){
-            return " Model: "+this.vehicleModel + " \nType: " + this.vehicleType + " \nNumber: "+this.vehicleNumber +" \nCapacity: "+this.vehiclecapacity;
+            return " Model: "+this.vehicleModel + " \nType: " + this.vehicleType + " \nNumber: "+this.vehicleNumber +" \nCapacity: "+this.vehiclecapacity +"\nDriver rating: "+ getdriverrating();
         }
 
     }

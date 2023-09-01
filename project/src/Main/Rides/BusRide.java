@@ -117,4 +117,16 @@ public BusRide(){super();}
             processRefund(customer);
         }
     }
+
+    public void CheckAvailability(Driver driver){
+
+        if(stillAvailable){
+            System.out.println("Get ready for your trip");
+        }else {
+            System.out.println("your trip to "+ this.To +" has been cancelled");
+            driver.BusrideId = 0;
+        }
+
+    }
+
 }

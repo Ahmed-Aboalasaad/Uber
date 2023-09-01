@@ -24,6 +24,9 @@ public class DriverSavedData {
             newDriver.Age = Short.parseShort(Reader.readLine());
             newDriver.Uber_Mail = Reader.readLine();
             newDriver.Uber_Password = Reader.readLine();
+            newDriver.BusrideId = Integer.parseInt(Reader.readLine());
+            newDriver.numofrates = Integer.parseInt(Reader.readLine());
+            newDriver.totalrates = Double.parseDouble(Reader.readLine());
             newDriver.licence = Reader.readLine();
             newDriver.licenceType = Reader.readLine();
             newDriver.vehicleModel = Reader.readLine();
@@ -47,6 +50,8 @@ public class DriverSavedData {
         for (int i = 0; i < driverList.size(); i++) {
             DriverData.append(driverList.get(i).Name + "\n" + driverList.get(i).Age);
             DriverData.append("\n" + driverList.get(i).Uber_Mail + "\n" + driverList.get(i).Uber_Password);
+            DriverData.append("\n" + driverList.get(i).BusrideId);
+            DriverData.append("\n" + driverList.get(i).numofrates + "\n" + driverList.get(i).totalrates);
             DriverData.append("\n" + driverList.get(i).licence + "\n" + driverList.get(i).licenceType);
             DriverData.append("\n" + driverList.get(i).vehicleModel + "\n" + driverList.get(i).vehicleType);
             DriverData.append("\n" + driverList.get(i).vehicleNumber + "\n");

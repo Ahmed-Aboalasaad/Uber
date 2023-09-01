@@ -68,17 +68,29 @@ public class ConsoleUi {
      *
      */
     public void driverHomePage() {
-        System.out.println("1] Main.Main.Rides history");
-        System.out.println("2] Main.Main.Rides.User.Customer Support");
+        System.out.println("New notifications:");
+        if(currentDriver.BusrideId!=0){
+            for(BusRide avbusrides:Busrideslist){
+                if(avbusrides.BusRideId == currentDriver.BusrideId)
+                {
+                    avbusrides.CheckAvailability(currentDriver);
+                    break;
+                }
+            }
+        }
+
+        System.out.println("\n\n\n");
+        System.out.println("1] Rides history");
+        System.out.println("2] Customer Support");
         System.out.println("3] Logout");
 
         int choice = scanner.nextInt();
         scanner.nextLine(); // Consume the newline character
 
         if (choice == 1) {
-            System.out.println("This is Main.Main.Rides.Ride History");
+            System.out.println("This is Ride History");
         } else if (choice==2) {
-            System.out.println("This is Main.Main.Rides.Ride Main.Main.Rides.User.Customer Support");
+            System.out.println("This is Customer Support");
         }
         else if (choice==3) {
             logout();
@@ -250,7 +262,8 @@ public class ConsoleUi {
      */
     public  void RateDiverPage() {
         System.out.print("Enter Number of Start (1 - 5)\n");
-        int rate = scanner.nextInt();
+        currentDriver.totalrates += scanner.nextInt();
+        currentDriver.numofrates++;
         scanner.nextLine();
         System.out.print("Enter FeedBack Message\n");
         String message = scanner.next();

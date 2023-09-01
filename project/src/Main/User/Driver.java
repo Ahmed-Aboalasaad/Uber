@@ -16,7 +16,10 @@ public class Driver  extends Person {
     public String vehicleNumber;
 
     public  int vehiclecapacity;
+    public int BusrideId;
 
+    public int numofrates;
+    public double totalrates;
     private static Driver currentDriver = null;
 
     /**
