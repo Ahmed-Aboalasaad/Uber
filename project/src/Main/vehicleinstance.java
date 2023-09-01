@@ -19,7 +19,7 @@ public class vehicleinstance {
         this.vehiclecapacity = vehiclecapacity;
     }
     public vehicle build(){
-        return  new vehicle(this.vehicleModel,this.vehicleType,this.vehicleNumber,this.vehiclecapacity);
+        return  new vehicle(this.vehicleModel, this.vehicleType,this.vehicleNumber,this.vehiclecapacity);
     }
 
     public void reset(){
@@ -43,9 +43,7 @@ public class vehicleinstance {
             this.vehiclecapacity = vehiclecapacity;
         }
 
-
         @Override
-
         public String toString(){
             return " Model: "+this.vehicleModel + " \nType: " + this.vehicleType + " \nNumber: "+this.vehicleNumber +" \nCapacity: "+this.vehiclecapacity;
         }

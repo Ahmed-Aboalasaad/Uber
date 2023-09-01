@@ -13,4 +13,5 @@ public interface paymentStrategy {
     public boolean checkBalance(double amount);
     public void deductBalance(double amount);
     public void Refund(Customer customer, Double amount);
+
 }

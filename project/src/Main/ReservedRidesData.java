@@ -10,6 +10,7 @@ import static Main.CustomerSavedData.customerList;
 public class ReservedRidesData {
    public static LinkedList<BusRide> Busrideslist = new LinkedList<BusRide>();
     public static void ReadDriverData() throws IOException {
+
         BufferedReader Reader = new BufferedReader(new FileReader("C:\\Users\\Adham\\IdeaProjects\\Uber\\project\\src\\Main.Main.Rides.UserData\\Main.Main.Rides.User.Driver.txt"));
         String line;
         while((line = Reader.readLine()) != null){
@@ -19,7 +20,7 @@ public class ReservedRidesData {
             newbusride.distance = Float.parseFloat(Reader.readLine());
             BusRide.Idtracker = Integer.parseInt(Reader.readLine());
             newbusride.BusRideId = Integer.parseInt(Reader.readLine());
-            newbusride.stillavailable = (Reader.readLine().equals("True") || Reader.readLine().equals("true")) ? true : false;
+            newbusride.stillAvailable = (Reader.readLine().equals("True") || Reader.readLine().equals("true")) ? true : false;
             newbusride.assignedvhmodel = Reader.readLine();
             newbusride.assignedvhnumber = Reader.readLine();
             newbusride.MinimumCharge = Float.parseFloat(Reader.readLine());
@@ -37,7 +38,6 @@ public class ReservedRidesData {
         }
         Reader.close();
 
-
     }
 
 
@@ -48,14 +48,14 @@ public class ReservedRidesData {
             if(checkride.revcustomerList.isEmpty()){
                Busrideslist.remove(checkride);}
             else if (checkride.reservationsCount < (checkride.capacity*(1/4)) ){
-                checkride.stillavailable = false;
+                checkride.stillAvailable = false;
             }
         }
 
         for (int i = 0; i < Busrideslist.size(); i++) {
             BusRideData.append(Busrideslist.get(i).From + "\n" + Busrideslist.get(i).To);
             BusRideData.append(BusRide.Idtracker+ "\n" + Busrideslist.get(i).BusRideId);
-            BusRideData.append(Busrideslist.get(i).stillavailable.toString()+ "\n" );
+            BusRideData.append(Busrideslist.get(i).stillAvailable.toString()+ "\n" );
             BusRideData.append("\n" + Busrideslist.get(i).distance + "\n" + Busrideslist.get(i).assignedvhmodel + "\n" + Busrideslist.get(i).assignedvhnumber + "\n"+ Busrideslist.get(i).MinimumCharge);
             BusRideData.append("\n" + Busrideslist.get(i).Maxcharge + "\n" + Busrideslist.get(i).reservationsCount);
             BusRideData.append("\n" + Busrideslist.get(i).capacity + "\n" + Busrideslist.get(i).ticketPrice);

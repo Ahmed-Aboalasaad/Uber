@@ -3,11 +3,14 @@ package Main;
 import Main.Rides.*;
 import Main.User.Customer;
 import Main.User.Driver;
-
+import Main.DriverSavedData.*;
+import Main.CustomerSavedData.*;
+import Main.ReservedRidesData.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 import static Main.CustomerSavedData.customerList;
+import static Main.DriverSavedData.driverList;
 import static Main.ReservedRidesData.Busrideslist;
 
 /**
@@ -29,7 +32,7 @@ public class ConsoleUi {
      */
   public void availablevhlist(){
 
-      for(Driver avdriver:DriverSavedData.driverList){
+      for(Driver avdriver: driverList){
       registeredvh.setmodel(avdriver.vehicleModel);
       registeredvh.setVehiclecapacity(avdriver.vehiclecapacity);
       registeredvh.setVehicleNumber(avdriver.vehicleNumber);
@@ -140,9 +143,7 @@ public class ConsoleUi {
      * Represents the process of requesting a ride.
      */
     public  void requestARide() {
-
-
-        Ride RuquestedRide;
+        Ride RequestedRide;
 
         System.out.println("1] From Home to Work\n2] From Work to Home\n3] Others");
         int choice = scanner.nextInt();
@@ -153,8 +154,6 @@ public class ConsoleUi {
             String to = scanner.nextLine();
         }
 
-//        System.out.println("1] Default Transportation\n2] Others");
-//        choice = scanner.nextInt();
 
         System.out.print("Main.Main.Rides.Ride type: (Bus - Car - Scooter)");
         String rideType = scanner.nextLine();
@@ -179,10 +178,10 @@ public class ConsoleUi {
             int busid = scanner.nextInt();
 
             chosenbus = avbuses.get(busid-1);
-            RuquestedRide = new BusRide(_distance_,chosenbus.vehiclecapacity);
-            RuquestedRide.SetRoute(currentCustomer.Home, currentCustomer.Work);
-             ((BusRide) RuquestedRide).assignedvhmodel = chosenbus.vehicleModel; // compiler made this I don't why
-             ((BusRide) RuquestedRide).assignedvhnumber = chosenbus.vehicleNumber;
+            RequestedRide = new BusRide(_distance_,chosenbus.vehiclecapacity);
+            RequestedRide.SetRoute(currentCustomer.Home, currentCustomer.Work);
+             ((BusRide) RequestedRide).assignedvhmodel = chosenbus.vehicleModel; // compiler made this I don't why
+             ((BusRide) RequestedRide).assignedvhnumber = chosenbus.vehicleNumber;
         }
         else if (rideType.equals("car")){
             vehicleinstance.vehicle chosencar;
@@ -198,13 +197,13 @@ public class ConsoleUi {
             for(vehicleinstance.vehicle eligible:avcars){
                 System.out.println(++numcar + "." + eligible.toString());
             }
-            System.out.println("enter the number of your choice");
+            System.out.println("Enter the number of your choice");
             int carid = scanner.nextInt();
 
             chosencar = avcars.get(carid-1);
 
-            RuquestedRide = new CarRide(_distance_);
-            RuquestedRide.SetRoute(currentCustomer.Home, currentCustomer.Work);}
+            RequestedRide = new CarRide(_distance_);
+            RequestedRide.SetRoute(currentCustomer.Home, currentCustomer.Work);}
         else{
 
             vehicleinstance.vehicle chosenscouter;
@@ -224,20 +223,12 @@ public class ConsoleUi {
         int scouterid = scanner.nextInt();
 
         chosenscouter= avscouters.get(scouterid-1);
-            RuquestedRide = new ScooterRide(_distance_);
-            RuquestedRide.SetRoute(currentCustomer.Home, currentCustomer.Work);}
-
-        // WE will discuss with Whole TEAM
-        /*
-        if(choice == 1) {
-            RuquestedRide = RuquestedRide.SetRoute(currentCustomer.Home, currentCustomer.Work);
-        }
-        else if (choice == 2){
-            RuquestedRide = RuquestedRide.SetRoute(currentCustomer.Work, currentCustomer.Home);
-        }*/
+            RequestedRide = new ScooterRide(_distance_);
+            RequestedRide.SetRoute(currentCustomer.Home, currentCustomer.Work);}
 
 
-        float totalPrice = RuquestedRide.CalculatePrice(_distance_);
+
+        float totalPrice = RequestedRide.CalculatePrice(_distance_);
         System.out.println("TotalPrice($):" + totalPrice);
 
 
@@ -298,7 +289,7 @@ public class ConsoleUi {
       if(currentCustomer.ReservedBusRide !=0){
           for( BusRide sob:Busrideslist){
               if(currentCustomer.ReservedBusRide == sob.BusRideId){
-                  sob.checkavailability(currentCustomer);
+                  sob.CheckAvailability(currentCustomer);
                   break;
               }
           }
@@ -364,7 +355,19 @@ public class ConsoleUi {
                 break;
             }
         }
-        customerHomePage();
+       for (Driver loggedin : driverList)
+       {
+           if(loggedin.Uber_Mail.equals(userMail) & loggedin.Uber_Password.equals(userPassword)) {
+               currentDriver = loggedin;
+               break;
+           }
+       }
+
+       if(currentCustomer != null)
+           customerHomePage();
+
+       else if (currentDriver != null)
+           driverHomePage();
     }
 
     /**

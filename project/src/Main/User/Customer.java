@@ -15,7 +15,7 @@ public class Customer extends Person {
     public String Work;
     public String paymentMethodtype;
     public paymentStrategy payer;
-
+    public int ReservedBusRide = 0;
     private static Customer currentCustomer = null;
 
     /**
@@ -31,10 +31,6 @@ public class Customer extends Person {
         return currentCustomer;
     }
 
-
-    public int ReservedBusRide = 0;
-
-
     public Customer(){
         super();
        // this.form();
@@ -47,28 +43,23 @@ public class Customer extends Person {
      */
 @Override
     public void form(){
-    Customer nCustomer = new Customer();
-
     Scanner scanner = new Scanner(System.in);
-    System.out.println("Hi Main.Main.Rides.User.Customer, Please enter the following data:");
+    System.out.println("Hi Customer, Please enter the following data:");
     System.out.print("Name:");
-    nCustomer.Name = scanner.nextLine();
+    currentCustomer.Name = scanner.nextLine();
     System.out.print("Age:");
-    nCustomer.Age = Short.parseShort(scanner.nextLine());
+    currentCustomer.Age = Short.parseShort(scanner.nextLine());
     System.out.print("Mail:");
-    nCustomer.Uber_Mail = scanner.nextLine();
+    currentCustomer.Uber_Mail = scanner.nextLine();
     System.out.print("Password:");
-    nCustomer.Uber_Password = scanner.nextLine();
+    currentCustomer.Uber_Password = scanner.nextLine();
     System.out.println("Home Location:");
-    nCustomer.Home = scanner.nextLine();
+    currentCustomer.Home = scanner.nextLine();
     System.out.println("Work Location:");
-    nCustomer.Work = scanner.nextLine();
+    currentCustomer.Work = scanner.nextLine();
     System.out.print("Payment Method: (Paypal - Card)");
-    nCustomer.paymentMethodtype = scanner.nextLine();
+    currentCustomer.paymentMethodtype = scanner.nextLine();
 
-
-    CustomerSavedData.customerList.add(nCustomer);
-    currentCustomer =CustomerSavedData.customerList.getLast();
+    CustomerSavedData.customerList.add(currentCustomer);
 }
-
 }
