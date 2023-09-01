@@ -1,5 +1,7 @@
 package Main.Graph;
 
+import Main.*;
+
 public class Road {
     public String destination;
     public float distance;

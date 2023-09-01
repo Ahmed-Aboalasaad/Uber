@@ -2,35 +2,66 @@ package Main.Graph;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Scanner;
 import java.util.Set;
 
+/**
+ * A graph(map) that you can add/delete cities/roads on.
+ */
 public class Graph {
     private int citiesNum, roadNum;
-    String name;
-    private HashMap <String, AdjacencyList> map = new HashMap<>();
+    private String name;
+    private HashMap <String, AdjacencyList> map;
 
-    // Constructors & destrcutor
+    // Constructors
+    /**
+     * Initialize a graph object
+     */
     public Graph() {
+        this.name = "Default Name";
         roadNum = 0;
         citiesNum = 0;
-        this.name = "Default Name";
+        map = new HashMap<>();
     }
+
+    /**
+     * Initialize a graph object with a custom map name
+     * @param name the map name
+     */
     public Graph(String name) {
         new Graph();
         this.name = name;
     }
 
     // Getters
-    public int getEdgeNum() {
+    /**
+     * Get the number of roads in the map
+     * @return number of roads in the map
+     */
+    public int getRoadsNumber() {
         return roadNum;
     }
-    public int getVertexNum() {
+
+    /**
+     * Get the number of cities in the map
+     * @return number of cities in the map
+     */
+    public int getCitiesNum() {
         return citiesNum;
     }
+
+    /**
+     * Get the names of all the cities in the map
+     * @return a String Set containing all the city names in the map
+     */
     public Set<String> getCitiesNames() {
         return (map.keySet());
     }
+
+    /**
+     * Get the number of roads going out of the city
+     * @param city the city to count its out-roads
+     * @return int number of roads going out of the city
+     */
     public int getOutRoadsNumber(String city) {
         int counter = 0;
         AdjacencyList adjacents = getOutAdjacents(city);
@@ -39,18 +70,37 @@ public class Graph {
             counter++;
         return counter;
     }
-    public int getRoadDistance(String city1, String city2) {
+
+    /**
+     * Get the distance of the road city1->city2 (if it exists)
+     * @param city1 the starting city
+     * @param city2 the destination city
+     * @return float distance of the road city1->city2 (if it exists)
+     */
+    public float getRoadDistance(String city1, String city2) {
         AdjacencyList adjacents = getOutAdjacents(city1);
         for (Road road : adjacents)
             if (road.destination.equals(city2))
                 return road.distance;
         return -1;
     }
+
+    /**
+     * Get all the roads going out from the given city
+     * @param city the city to get its out-roads
+     * @return a LinkedList of out-roads (adjacency list) of the given city
+     */
     public AdjacencyList getOutAdjacents(String city) {
         return (map.get(city));
     }
+
+    /**
+     * Get all the roads going in the given city
+     * @param destination the city to get its in-rods
+     * @return a LinkedList of in-roads of the given city
+     */
     public AdjacencyList getInAdjacents(String destination) {
-        AdjacencyList adjacents = new AdjacencyList();
+        AdjacencyList inAdjacents = new AdjacencyList();
         Set<String> Cities = map.keySet();
         for (String city : Cities) {
             // if you found a road from any city to the city we're getting its in-adjacents
@@ -58,27 +108,42 @@ public class Graph {
                 // get the distance from that city to city we're getting its in-adjacents
                 for (Road road : map.get(city))
                     if (road.destination.equals(destination))
-                        adjacents.push(new Road(road));
-        }
-        return adjacents;
-    }
-    public AdjacencyList getAdjacents(String city) {
-        AdjacencyList inAdjacents = getInAdjacents(city)
-                , outAdjacents = getOutAdjacents(city);
-        // combining all the adjacents into the in-adjacents excluding duplicates
-        for (Road in : inAdjacents) {
-            for (Road out : outAdjacents) {
-                // if you found an already-existing road, skip
-                if (in.destination.equals(out.destination) && in.distance == out.distance)
-                    break; // not sure break or continue
-                else
-                    inAdjacents.push(new Road(out));
-            }
+                        inAdjacents.push(new Road(city, road.distance));
         }
         return inAdjacents;
     }
 
+    /**
+     * Get all the roads that connect the given city with
+     * other cities excluding repeated roads (2-way same-distance roads)
+     * @param city the city to get its adjacents
+     * @return a LinkedList of all the in & out Roads connected to this city
+     */
+    public AdjacencyList getAdjacents(String city) {
+        AdjacencyList inAdjacents = getInAdjacents(city)
+                , outAdjacents = getOutAdjacents(city),
+                adjacents = new AdjacencyList();
+        boolean repeated;
+        for (Road in : inAdjacents)
+            adjacents.push(in);
+        for (Road out : outAdjacents) {
+            repeated = false;
+            for (Road adjacent : adjacents)
+                if (out.destination.equals(adjacent.destination) && out.distance == adjacent.distance) {
+                    repeated = true;
+                    break;
+                }
+            if (!repeated)
+                adjacents.push(out);
+        }
+        return adjacents;
+    }
+
     // Cities
+    /**
+     * Add a city to the map
+     * @param city the city name
+     */
     public void addCity(String city) {
         if (cityExists(city))
             System.out.println("Error: trying to add an already-existent city");
@@ -87,19 +152,20 @@ public class Graph {
         citiesNum++;
         System.out.println("Added " + city + " :)");
     }
+
+    /**
+     * Delete a city from the map
+     * @param city the city name
+     */
     public void deleteCity(String city) {
         if (!cityExists(city)) {
-            System.out.println("Error: trytin to delete a non-existing city");
+            System.out.println("Error: trying to delete a non-existing city");
             return;
         }
 
-        AdjacencyList Outs = getOutAdjacents(city);
-        for (Road road : Outs)
-            deleteRoad(city, road.destination);
-
         AdjacencyList Ins = getInAdjacents(city);
         for (Road road : Ins)
-            deleteRoad(city, road.destination);
+            deleteDirectedRoad(road.destination, city);
 
         map.remove(city);
         citiesNum--;
@@ -107,13 +173,13 @@ public class Graph {
 
     // Roads
     /**
-     * adds or edits roads between 2 cities (the order matters)
-     * @param city1 source
-     * @param city2 destination
-     * @param distance the distance
+     * Add or Update roads between 2 cities (the order matters)
+     * @param city1 the source city name
+     * @param city2 the destination city name
+     * @param distance the distance you want to add/update the road with
      */
-    public void AddOrEditRoad(String city1, String city2, int distance) {
-        System.out.println("Adding/Editing road " + city1 + " -> " + city2);
+    public void addOrUpdateRoad(String city1, String city2, float distance) {
+        System.out.println("Adding/Updating road " + city1 + " -> " + city2);
 
         // make sure the cities exist
         if (!cityExists(city1)) {
@@ -142,15 +208,14 @@ public class Graph {
         // no road between them... add it
         map.get(city1).push(new Road(city2, distance));
         System.out.println("Added road: " + city1 + " --" + distance + "--> " + city2 + " :)");
-        return;
     }
 
     /**
-     * deletes road(s) between 2 cities (regardless the parameters order)
+     * Delete all the road(s) between 2 cities
      * @param city1 one city
      * @param city2 the other
      */
-    public void deleteRoad(String city1, String city2) {
+    public void deleteRoads(String city1, String city2) {
         System.out.println("Deleting road (" + city1 + ", " + city2 + ")");
 
         // make sure the cities exist
@@ -163,77 +228,42 @@ public class Graph {
             return;
         }
 
-        if(!roadExists(city1, city2)) {
+        if(!roadExists(city1, city2))
             System.out.println("Error: no such a road!");
-            return;
-        }
-
         // 1-way road 1 -> 2
-        else if (roadExists(city1, city2) && !roadExists(city2, city1)) {
+        else if (roadExists(city1, city2) && !roadExists(city2, city1))
             deleteDirectedRoad(city1, city2);
-            System.out.println("Deleted road " + city1 + " -> " + city2);
-        }
-
         // 1-way road 2 -> 1
-        else if (roadExists(city2, city1) && !roadExists(city1, city2)) {
+        else if (roadExists(city2, city1) && !roadExists(city1, city2))
             deleteDirectedRoad(city2, city1);
-            System.out.println("Deleted road " + city2 + " -> " + city1);
-            return;
-        }
-
         // 2-way road :
-        // same distance
-        if (getRoadDistance(city1, city2) == getRoadDistance(city2, city1)) {
-            deleteRoad(city1, city2);
-            deleteRoad(city2, city1);
-            System.out.println("Deleted roads " + city1 + " <--> " + city2);
-            return;
-        }
-        // different distances (let the user decide which road to delete)
         else {
-            Scanner scanner = new Scanner(System.in);
-            while (true) {
-                System.out.println("1- delete road " + city1 + " -> " + city2);
-                System.out.println("2- delete road " + city2 + " -> " + city1);
-                System.out.println("3- delete both roads");
-
-                int choice = scanner.nextInt();
-                switch (choice) {
-                    case 1:
-                        deleteRoad(city1, city2);
-                        break;
-                    case 2:
-                        deleteRoad(city2, city1);
-                        break;
-                    case 3:
-                        deleteRoad(city1, city2);
-                        deleteRoad(city2, city1);
-                        break;
-                    default:
-                        System.out.println("Invalid choice!  Try agian");
-                        continue;
-                }
-                break;
-            }
+            deleteDirectedRoad(city1, city2);
+            deleteDirectedRoad(city2, city1);
         }
-
-        System.out.println("Deletion Done :)");
     }
 
     /**
-     * deletes the road city1 -> city2
-     * @param city1 the source
-     * @param city2 the destination
+     * Delete the road city1 -> city2 (the order matters)
+     * @param city1 the source city name
+     * @param city2 the destination city name
      */
     public void deleteDirectedRoad(String city1, String city2) {
         for (Road road : map.get(city1))
             if (road.destination.equals(city2)) {
                 map.get(city1).remove(road);
-                break;
+                System.out.println("Deleted Road: " + city1 + " -> " + city2);
+                return;
             }
+        System.out.println("Failed to delete Road: " + city1 + " -> " + city2);
     }
 
     // Boolean checkers
+    /**
+     * Check if the given city exists
+     * @param city the city name
+     * @return 1 if it exists, 0 otherwise
+     */
     public boolean cityExists(String city) {
         Set<String> Cities = map.keySet();
         for (String c : Cities)
@@ -241,6 +271,13 @@ public class Graph {
                 return true;
         return false;
     }
+
+    /**
+     * Check if the road city1 -> city2 exists (the order matter)
+     * @param city1 the source city name
+     * @param city2 the destination city name
+     * @return 1 if it exists, 0 otherwise
+     */
     public boolean roadExists(String city1, String city2) {
         if (!cityExists(city1) || !cityExists(city2))
             return false;
@@ -250,23 +287,31 @@ public class Graph {
                 return true;
         return false;
     }
+
+    /**
+     * Check if the map is empty
+     * @return 1 if the map is empty, 0 otherwise
+     */
     public boolean empty() {
         return (map.isEmpty());
     }
 
+    /**
+     * Display all the cities and the possible roads out of them
+     */
     public void display() {
         if (empty()) {
             System.out.println("You don't have any cities in this map yet!");
             return;
         }
 
-        System.out.println("\n\t" + name + " Cities:");
+        System.out.println("\n\t  ==== " + name + " Cities ====");
         for (Map.Entry<String, AdjacencyList> entry : map.entrySet()) {
             System.out.println("-> " + entry.getKey());
             for (Road road : entry.getValue())
-                System.out.println("\t" + road.distance + " --> " + road.destination);
+                System.out.println("\t" + road.destination + " --> " + road.distance);
 
-            System.out.println("\t\t\t=======================================================================");
+            System.out.println("==================================");
         }
     }
 }
