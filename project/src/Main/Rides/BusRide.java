@@ -3,13 +3,10 @@ import Main.ReservedRidesData;
 
 import java.util.ArrayList;
 import Main.User.*;
+
 import static Main.ReservedRidesData.Busrideslist;
 
 
-/**
- * The BusRide class represents a ride provided by a bus in the ride-sharing system.
- * This class extends the Ride class and adds additional properties and methods specific to bus rides.
- */
 public class BusRide extends Ride implements BusReservation {
 
     // ADD Main.Main.Rides.User.Customer Package !!!!
@@ -33,12 +30,6 @@ public class BusRide extends Ride implements BusReservation {
         return ticketPrice ;
     }
 
-    /**
-     * Constructor for creating a bus ride with the given distance and capacity.
-     *
-     * @param distance The distance of the bus ride.
-     * @param capacity The capacity of the bus.
-     */
     public BusRide(float distance, int capacity) {
         super(distance);
         this.capacity = capacity;
@@ -46,17 +37,7 @@ public class BusRide extends Ride implements BusReservation {
         Idtracker++;
         savedata();
     }
-
-    /**
-     * Default constructor for the BusRide class.
-     */
-    public BusRide(){super();}
-
-    /**
-     * Reserves a seat for the specified customer on this bus ride.
-     *
-     * @param customer The customer reserving the seat.
-     */
+public BusRide(){super();}
     public void Reserve(Customer customer){
         revcustomerList.add(customer);
         customer.ReservABus = true;
@@ -67,11 +48,6 @@ public class BusRide extends Ride implements BusReservation {
         System.out.println("Reserve Successfully");
     }
 
-    /**
-     * Cancels the reservation of a seat for the specified customer on this bus ride.
-     *
-     * @param customer The customer canceling the reservation.
-     */
     public void CancelReservation(Customer customer){
         revcustomerList.remove(customer);
         reservationsCount--;
@@ -82,9 +58,6 @@ public class BusRide extends Ride implements BusReservation {
         System.out.println("Reserve Cancelled");
     }
 
-    /**
-     * Updates the ticket price for the bus ride based on changes in reservations.
-     */
     public void UpdateTicketPrice(){
         if(oldticketprice == 0)
             return;
@@ -108,18 +81,12 @@ public class BusRide extends Ride implements BusReservation {
 
 
     }
-
-    /**
-     * Saves the bus ride data to the list of reserved rides.
-     */
     public void savedata(){
      Busrideslist.add(this);
     }
 
 
-    /**
-     * Processes refunds for customers who reserved seats for the bus ride.
-     */
+
     public void processrefund(){
         for (Customer customer : revcustomerList){
 
@@ -130,14 +97,13 @@ public class BusRide extends Ride implements BusReservation {
         maderefund = true;
     }
 
-    /**
-     * Processes additional charges for customers who reserved seats for the bus ride.
-     */
     public void processtakeaddition(){
         for(Customer customer:revcustomerList){
             customer.payer.deductBalance((double)(oldticketprice - ticketPrice));
         }
+
         tookaddition = true;
     }
+
 
 }

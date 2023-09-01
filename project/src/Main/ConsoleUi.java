@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import static Main.CustomerSavedData.customerList;
+import static Main.DriverSavedData.driverList;
 import static Main.ReservedRidesData.Busrideslist;
 
 /**
@@ -29,7 +30,7 @@ public class ConsoleUi {
      */
   public void availablevhlist(){
 
-      for(Driver avdriver:DriverSavedData.driverList){
+      for(Driver avdriver: driverList){
       registeredvh.setmodel(avdriver.vehicleModel);
       registeredvh.setVehiclecapacity(avdriver.vehiclecapacity);
       registeredvh.setVehicleNumber(avdriver.vehicleNumber);
@@ -181,6 +182,8 @@ public class ConsoleUi {
             chosenbus = avbuses.get(busid-1);
             RuquestedRide = new BusRide(_distance_,chosenbus.vehiclecapacity);
             RuquestedRide.SetRoute(currentCustomer.Home, currentCustomer.Work);
+             ((BusRide) RuquestedRide).assignedvhmodel = chosenbus.vehicleModel; // compiler made this I don't why
+             ((BusRide) RuquestedRide).assignedvhnumber = chosenbus.vehicleNumber;
         }
         else if (rideType.equals("car")){
             vehicleinstance.vehicle chosencar;
@@ -293,10 +296,11 @@ public class ConsoleUi {
      */
     public  void customerHomePage() {
       System.out.println("New Notifications:");
-      if(currentCustomer.ReservABus){
+      if(currentCustomer.ReservedBusRide !=0){
           for( BusRide sob:Busrideslist){
               if(currentCustomer.ReservedBusRide == sob.BusRideId){
-                  sob.UpdateTicketPrice();
+                  sob.checkavailability(currentCustomer);
+                  break;
               }
           }
       }
@@ -350,6 +354,7 @@ public class ConsoleUi {
      * If successful, sets the current customer and displays the customer home page.
      */
     public void loginPage() {
+
         System.out.print("Email:");
         String userMail = scanner.nextLine();
         System.out.print("Password:");
@@ -361,7 +366,21 @@ public class ConsoleUi {
                 break;
             }
         }
-        customerHomePage();
+
+        for(Driver loggedin:driverList){
+            if(loggedin.Uber_Mail.equals(userMail) & loggedin.Uber_Password.equals(userPassword))
+            {
+                currentDriver = loggedin;
+                break;
+            }
+        }
+
+        if(currentCustomer != null){
+            customerHomePage();
+            return;
+        }
+        // we didn't make a driver homepage
+
     }
 
     /**
