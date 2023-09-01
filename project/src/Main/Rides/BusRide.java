@@ -20,7 +20,8 @@ public class BusRide extends Ride implements BusReservation {
 
      public int reservationsCount = 0;
      public int capacity;
-
+     public String assignedvhmodel;
+     public String assignedvhnumber;
     public float ticketPrice;
    public float oldticketprice = 0;
      public double Maxcharge = (ticketPrice)*this.capacity;
@@ -42,7 +43,7 @@ public class BusRide extends Ride implements BusReservation {
 public BusRide(){super();}
     public void Reserve(Customer customer){
         revcustomerList.add(customer);
-        customer.ReservABus = true;
+        customer.ReservedBusRide = this.BusRideId;
         reservationsCount++;
         oldticketprice =ticketPrice;
         ticketPrice= MinimumCharge / reservationsCount;
@@ -53,7 +54,7 @@ public BusRide(){super();}
     public void CancelReservation(Customer customer){
         revcustomerList.remove(customer);
         reservationsCount--;
-        customer.ReservABus=false;
+        customer.ReservedBusRide = 0;
         oldticketprice =ticketPrice;
         ticketPrice= MinimumCharge / reservationsCount;
         tookaddition = false;
@@ -100,7 +101,7 @@ public BusRide(){super();}
     public void processrefund(Customer customer){
         customer.payer.Refund(customer,(double)this.ticketPrice);
 
-        customer.ReservABus = false;
+
         customer.ReservedBusRide = 0;
         revcustomerList.remove(customer);
         System.out.println("the trip was cancelled and "+ this.ticketPrice +" were refunded to your account");

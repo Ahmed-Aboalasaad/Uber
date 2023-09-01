@@ -152,6 +152,8 @@ public class ConsoleUi {
             chosenbus = avbuses.get(busid-1);
             RuquestedRide = new BusRide(_distance_,chosenbus.vehiclecapacity);
             RuquestedRide.SetRoute(currentCustomer.Home, currentCustomer.Work);
+             ((BusRide) RuquestedRide).assignedvhmodel = chosenbus.vehicleModel; // compiler made this I don't why
+             ((BusRide) RuquestedRide).assignedvhnumber = chosenbus.vehicleNumber;
         }
         else if (rideType.equals("car")){
             vehicleinstance.vehicle chosencar;
@@ -241,7 +243,7 @@ public class ConsoleUi {
 
     public  void customerHomePage() {
       System.out.println("New Notifications:");
-      if(currentCustomer.ReservABus){
+      if(currentCustomer.ReservedBusRide !=0){
           for( BusRide sob:Busrideslist){
               if(currentCustomer.ReservedBusRide == sob.BusRideId){
                   sob.checkavailability(currentCustomer);

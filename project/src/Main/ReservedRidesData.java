@@ -20,6 +20,8 @@ public class ReservedRidesData {
             BusRide.Idtracker = Integer.parseInt(Reader.readLine());
             newbusride.BusRideId = Integer.parseInt(Reader.readLine());
             newbusride.stillavailable = (Reader.readLine().equals("True") || Reader.readLine().equals("true")) ? true : false;
+            newbusride.assignedvhmodel = Reader.readLine();
+            newbusride.assignedvhnumber = Reader.readLine();
             newbusride.MinimumCharge = Float.parseFloat(Reader.readLine());
             newbusride.Maxcharge = Float.parseFloat(Reader.readLine());
             newbusride.reservationsCount= Integer.parseInt(Reader.readLine());
@@ -54,7 +56,7 @@ public class ReservedRidesData {
             BusRideData.append(Busrideslist.get(i).From + "\n" + Busrideslist.get(i).To);
             BusRideData.append(BusRide.Idtracker+ "\n" + Busrideslist.get(i).BusRideId);
             BusRideData.append(Busrideslist.get(i).stillavailable.toString()+ "\n" );
-            BusRideData.append("\n" + Busrideslist.get(i).distance + "\n" + Busrideslist.get(i).MinimumCharge);
+            BusRideData.append("\n" + Busrideslist.get(i).distance + "\n" + Busrideslist.get(i).assignedvhmodel + "\n" + Busrideslist.get(i).assignedvhnumber + "\n"+ Busrideslist.get(i).MinimumCharge);
             BusRideData.append("\n" + Busrideslist.get(i).Maxcharge + "\n" + Busrideslist.get(i).reservationsCount);
             BusRideData.append("\n" + Busrideslist.get(i).capacity + "\n" + Busrideslist.get(i).ticketPrice);
             BusRideData.append("\n" + Busrideslist.get(i).oldticketprice + "\n");
