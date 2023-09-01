@@ -50,32 +50,32 @@ public class Driver  extends Person {
      */
     @Override
     public void form(){
-
+        Driver nDriver = new Driver();
         Scanner scanner = new Scanner(System.in);
         System.out.println("Hi Main.Main.Rides.User.Driver, Please enter the following data:");
         System.out.print("Name:");
-        currentDriver.Name = scanner.nextLine();
+        nDriver.Name = scanner.nextLine();
         System.out.print("Age:");
-        currentDriver.Age = Short.parseShort(scanner.nextLine());
+        nDriver.Age = Short.parseShort(scanner.nextLine());
         System.out.print("Mail:");
-        currentDriver.Uber_Mail = scanner.nextLine();
+        nDriver.Uber_Mail = scanner.nextLine();
         System.out.print("Password:");
-        currentDriver.Uber_Password = scanner.nextLine();
+        nDriver.Uber_Password = scanner.nextLine();
         System.out.print("licence:");
-        currentDriver.licence = scanner.nextLine();
+        nDriver.licence = scanner.nextLine();
         System.out.print("licence_type:");
-        currentDriver.licenceType = scanner.nextLine();
+        nDriver.licenceType = scanner.nextLine();
         System.out.print("vehicle_model:");
-        currentDriver.vehicleModel = scanner.nextLine();
+        nDriver.vehicleModel = scanner.nextLine();
         System.out.print("vehicle_Type:");
-        currentDriver.vehicleType = scanner.nextLine();
+        nDriver.vehicleType = scanner.nextLine();
         System.out.print("Car_Number:");
-        currentDriver.vehicleNumber = scanner.nextLine();
+        nDriver.vehicleNumber = scanner.nextLine();
         System.out.print("enter your vehicle's capacity:");
-        currentDriver.vehiclecapacity = scanner.nextInt();
+        nDriver.vehiclecapacity = scanner.nextInt();
 
-        DriverSavedData.driverList.add(currentDriver);
-
+        DriverSavedData.driverList.add(nDriver);
+        currentDriver = DriverSavedData.driverList.getLast();
     }
 
 }

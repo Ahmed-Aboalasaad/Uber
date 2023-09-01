@@ -47,28 +47,28 @@ public class Customer extends Person {
      */
 @Override
     public void form(){
-
+    Customer nCustomer = new Customer();
 
     Scanner scanner = new Scanner(System.in);
     System.out.println("Hi Main.Main.Rides.User.Customer, Please enter the following data:");
     System.out.print("Name:");
-    currentCustomer.Name = scanner.nextLine();
+    nCustomer.Name = scanner.nextLine();
     System.out.print("Age:");
-    currentCustomer.Age = Short.parseShort(scanner.nextLine());
+    nCustomer.Age = Short.parseShort(scanner.nextLine());
     System.out.print("Mail:");
-    currentCustomer.Uber_Mail = scanner.nextLine();
+    nCustomer.Uber_Mail = scanner.nextLine();
     System.out.print("Password:");
-    currentCustomer.Uber_Password = scanner.nextLine();
+    nCustomer.Uber_Password = scanner.nextLine();
     System.out.println("Home Location:");
-    currentCustomer.Home = scanner.nextLine();
+    nCustomer.Home = scanner.nextLine();
     System.out.println("Work Location:");
-    currentCustomer.Work = scanner.nextLine();
+    nCustomer.Work = scanner.nextLine();
     System.out.print("Payment Method: (Paypal - Card)");
-    currentCustomer.paymentMethodtype = scanner.nextLine();
+    nCustomer.paymentMethodtype = scanner.nextLine();
 
 
-    CustomerSavedData.customerList.add(currentCustomer);
-
+    CustomerSavedData.customerList.add(nCustomer);
+    currentCustomer =CustomerSavedData.customerList.getLast();
 }
 
 }
