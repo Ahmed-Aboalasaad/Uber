@@ -1,12 +1,14 @@
 package Main.Rides;
 
 public abstract class Ride {
-    float distance ;
-    String From;
-    String To;
-    float price ;
-    float rate;
+    public float distance ;
+    public String From;
+     public String To;
+     public float price ;
+     public float rate;
     public abstract float CalculatePrice (float distance);
+
+    public Ride(){}
 
     public Ride(float distance) {
         this.distance = distance;

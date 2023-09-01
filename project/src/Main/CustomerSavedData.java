@@ -16,10 +16,15 @@ public class CustomerSavedData {
             nCustomer.Age = Short.parseShort(Reader.readLine());
             nCustomer.Uber_Mail = Reader.readLine();
             nCustomer.Uber_Password = Reader.readLine();
-            nCustomer.currentLocation = Reader.readLine();
+            nCustomer.ReservABus = Reader.readLine().equals("True") || Reader.readLine().equals("true") ? true : false;
+           nCustomer.ReservedBusRide = Integer.parseInt(Reader.readLine());
             nCustomer.paymentMethodtype = Reader.readLine();
             //nCustomer.payer = Reader.readLine();
-
+            if(nCustomer.paymentMethodtype.equals("paypal")){
+                nCustomer.payer = new paypal(Reader.readLine(), Reader.readLine());
+            } else if(nCustomer.paymentMethodtype.equals("credit card")){
+                nCustomer.payer = new credit_card(Reader.readLine(), Reader.readLine());
+            }
             customerList.add(nCustomer);
 
 
@@ -33,8 +38,9 @@ public class CustomerSavedData {
             
                 Writer.append(customerList.get(i).Name + "\n" + customerList.get(i).Age);
                 Writer.append("\n" + customerList.get(i).Uber_Mail + "\n" + customerList.get(i).Uber_Password);
-                Writer.append("\n" + customerList.get(i).currentLocation + "\n" + customerList.get(i).paymentMethodtype + "\n");
-            
+                Writer.append("\n" + customerList.get(i).ReservABus + "\n" + customerList.get(i).ReservedBusRide+ "\n");
+            Writer.append("\n" + customerList.get(i).payer.getaccnum() + "\n" + customerList.get(i).payer.getpassword()+ "\n");
+
 
         }
         Writer.close();

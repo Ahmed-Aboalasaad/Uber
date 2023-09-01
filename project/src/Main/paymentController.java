@@ -27,6 +27,14 @@ public class paymentController {
         customer.payer = paymentStrategy;
     }
 
+   public String getaccnum(){
+        return this.paymentStrategy.getaccnum();
+   }
+
+   public String getpassword(){
+        return this.paymentStrategy.getpassword();
+   }
+
 
     public boolean checkCredentials(String username,String password){
       return this.paymentStrategy.checkCredentials(username, password);

@@ -2,6 +2,8 @@ package Main.Rides;
 
 public class CarRide extends Ride {
     float pricePerKM = 10;
+    public CarRide(){super();}
+
 
     public CarRide(float distance) {
         super(distance);

@@ -4,8 +4,8 @@ import Main.User.Customer;
 
 public class credit_card implements paymentStrategy  {
 
-String creditCardNumber;
-String CVV;
+public String creditCardNumber;
+ public String CVV;
 public double balance;
 
 
@@ -17,6 +17,13 @@ public double balance;
     public void setBalance(double balance) {
         this.balance = balance;
     }
+   public String getaccnum(){
+        return creditCardNumber;
+   }
+   public String getpassword(){
+        return CVV;
+   }
+
 
     @Override
     public boolean checkCredentials(String creditCardNumber, String CVV) {

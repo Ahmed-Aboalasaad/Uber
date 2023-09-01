@@ -1,5 +1,6 @@
-package Main.User;
 
+package Main.User;
+import Main.*;
 import java.util.Scanner;
 public class Driver  extends Person {
     public String licence;
@@ -8,11 +9,14 @@ public class Driver  extends Person {
     public String vehicleType;
     public String vehicleNumber;
 
+    public  int vehiclecapacity;
+
     private static Driver currentDriver = null;
 
     public static Driver getInstance(){
         if(currentDriver == null){
             currentDriver = new Driver();
+
         }
         return currentDriver;
     }
@@ -47,8 +51,11 @@ public class Driver  extends Person {
         nDriver.vehicleType = scanner.nextLine();
         System.out.print("Car_Number:");
         nDriver.vehicleNumber = scanner.nextLine();
+        System.out.print("enter your vehicle's capacity:");
+        nDriver.vehiclecapacity = scanner.nextInt();
 
         DriverSavedData.driverList.add(nDriver);
+        currentDriver = DriverSavedData.driverList.getLast();
     }
 
 }

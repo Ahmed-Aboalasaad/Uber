@@ -1,49 +1,109 @@
 package Main.Rides;
+import Main.ReservedRidesData;
 
 import java.util.ArrayList;
 import Main.User.*;
+
+import static Main.ReservedRidesData.Busrideslist;
 
 
 public class BusRide extends Ride implements BusReservation {
 
     // ADD Main.Main.Rides.User.Customer Package !!!!
-    ArrayList <Customer> customerList = new ArrayList<Customer>();
+   public ArrayList <Customer> revcustomerList = new ArrayList<Customer>();
 
-    Double MinimumCharge;
-    int reservationsCount = 0;
-    float ticketPrice;
+   public static int Idtracker = 1;
+   public int BusRideId;
+    public float MinimumCharge;
+
+     public int reservationsCount = 0;
+     public int capacity;
+
+    public float ticketPrice;
+   public float oldticketprice = 0;
+     public double Maxcharge = (ticketPrice)*this.capacity;
+
+     public boolean maderefund = true;
+     public boolean tookaddition = true;
     @Override
     public float CalculatePrice(float distance) {
         return ticketPrice ;
     }
 
-    public BusRide(float distance) {
+    public BusRide(float distance, int capacity) {
         super(distance);
-        reservationsCount++;
+        this.capacity = capacity;
+        BusRideId = Idtracker;
+        Idtracker++;
+        savedata();
     }
-
+public BusRide(){super();}
     public void Reserve(Customer customer){
-        customerList.add(customer);
+        revcustomerList.add(customer);
+        customer.ReservABus = true;
         reservationsCount++;
-        customer.ReservationPrice = MinimumCharge / reservationsCount;
+        oldticketprice =ticketPrice;
+        ticketPrice= MinimumCharge / reservationsCount;
+        maderefund = false;
         System.out.println("Reserve Successfully");
     }
 
     public void CancelReservation(Customer customer){
-        customerList.remove(customer);
+        revcustomerList.remove(customer);
         reservationsCount--;
+        customer.ReservABus=false;
+        oldticketprice =ticketPrice;
+        ticketPrice= MinimumCharge / reservationsCount;
+        tookaddition = false;
         System.out.println("Reserve Cancelled");
     }
 
     public void UpdateTicketPrice(){
-        double latestPrice = customerList.get(customerList.size()-1).ReservationPrice;
-        for (Customer customer : customerList){
-            if(latestPrice != customer.ReservationPrice){
-                customer.payer.Refund(customer,customer.ReservationPrice - latestPrice);
-            }
+        if(oldticketprice == 0)
+            return;
+
+        if(!maderefund){
+            processrefund();
+            System.out.println("your trip ticket price has changed from "
+                    + oldticketprice + " to "+ ticketPrice);
+
+            System.out.println((oldticketprice-ticketPrice)+" were refunded to your account");
+        }else if(!tookaddition){
+            processtakeaddition();
+            System.out.println("your trip ticket price has changed from "
+                    + oldticketprice + " to "+ ticketPrice);
+
+            System.out.println((oldticketprice-ticketPrice)+" were deducted from your account");
+        }else{
+            System.out.println("your trip to "+ From+" awaits you");
         }
+
+
+
+    }
+    public void savedata(){
+     Busrideslist.add(this);
     }
 
+
+
+    public void processrefund(){
+        for (Customer customer : revcustomerList){
+
+            customer.payer.Refund(customer,(double)(oldticketprice - ticketPrice));
+
+        }
+
+        maderefund = true;
+    }
+
+    public void processtakeaddition(){
+        for(Customer customer:revcustomerList){
+            customer.payer.deductBalance((double)(oldticketprice - ticketPrice));
+        }
+
+        tookaddition = true;
+    }
 
 
 }

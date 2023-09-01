@@ -4,12 +4,33 @@ import Main.Rides.*;
 import Main.User.Customer;
 import Main.User.Driver;
 
+import java.util.ArrayList;
 import java.util.Scanner;
+
+import static Main.CustomerSavedData.customerList;
+import static Main.ReservedRidesData.Busrideslist;
 
 public class ConsoleUi {
     public static Scanner scanner = new Scanner(System.in);
     Customer currentCustomer;
     Driver currentDriver;
+
+    ArrayList<vehicleinstance.vehicle> vehiclelist= new ArrayList<vehicleinstance.vehicle>();
+    vehicleinstance registeredvh = new vehicleinstance();
+  public void availablevhlist(){
+
+      for(Driver avdriver:DriverSavedData.driverList){
+      registeredvh.setmodel(avdriver.vehicleModel);
+      registeredvh.setVehiclecapacity(avdriver.vehiclecapacity);
+      registeredvh.setVehicleNumber(avdriver.vehicleNumber);
+      registeredvh.setVehicleType(avdriver.vehicleType);
+
+      vehiclelist.add(registeredvh.build());
+
+      registeredvh.reset();
+      }
+  }
+
 
     public void startPage() {
         System.out.println("Welcome To Uber System");
@@ -90,6 +111,8 @@ public class ConsoleUi {
     }
 
     public  void requestARide() {
+
+
         Ride RuquestedRide;
 
         System.out.println("1] From Home to Work\n2] From Work to Home\n3] Others");
@@ -109,12 +132,69 @@ public class ConsoleUi {
 
         float _distance_ = 0; // Will Change According to ABO Main.Main.Rides.Graph
 
-        if(rideType.equals("bus") && choice == 1)
-            RuquestedRide = new BusRide(_distance_);
-        else if (rideType.equals("car"))
+        if(rideType.equals("bus") && choice == 1){
+            vehicleinstance.vehicle chosenbus;
+            ArrayList<vehicleinstance.vehicle> avbuses = new ArrayList<vehicleinstance.vehicle>();
+            for(vehicleinstance.vehicle currentvh: vehiclelist){
+
+                if(currentvh.vehiclecapacity >= 14){
+                    avbuses.add(currentvh);
+                }
+            }
+            int numvh = 0;
+
+            for(vehicleinstance.vehicle eligible:avbuses){
+                System.out.println(++numvh + "." + eligible.toString());
+            }
+            System.out.println("enter the number of your choice");
+            int busid = scanner.nextInt();
+
+            chosenbus = avbuses.get(busid-1);
+            RuquestedRide = new BusRide(_distance_,chosenbus.vehiclecapacity);
+            RuquestedRide.SetRoute(currentCustomer.Home, currentCustomer.Work);
+        }
+        else if (rideType.equals("car")){
+            vehicleinstance.vehicle chosencar;
+            ArrayList<vehicleinstance.vehicle> avcars= new ArrayList<vehicleinstance.vehicle>();
+            for(vehicleinstance.vehicle currentvh: vehiclelist){
+
+                if(currentvh.vehiclecapacity <=4 & currentvh.vehiclecapacity>=6){
+                    avcars.add(currentvh);
+                }
+            }
+            int numcar = 0;
+
+            for(vehicleinstance.vehicle eligible:avcars){
+                System.out.println(++numcar + "." + eligible.toString());
+            }
+            System.out.println("enter the number of your choice");
+            int carid = scanner.nextInt();
+
+            chosencar = avcars.get(carid-1);
+
             RuquestedRide = new CarRide(_distance_);
-        else
+            RuquestedRide.SetRoute(currentCustomer.Home, currentCustomer.Work);}
+        else{
+
+            vehicleinstance.vehicle chosenscouter;
+        ArrayList<vehicleinstance.vehicle> avscouters = new ArrayList<vehicleinstance.vehicle>();
+        for(vehicleinstance.vehicle currentvh: vehiclelist){
+
+            if(currentvh.vehicleType.equals("scouter")){
+                avscouters.add(currentvh);
+            }
+        }
+        int numvh = 0;
+
+        for(vehicleinstance.vehicle eligible:avscouters){
+            System.out.println(++numvh + "." + eligible.toString());
+        }
+        System.out.println("enter the number of your choice");
+        int scouterid = scanner.nextInt();
+
+        chosenscouter= avscouters.get(scouterid-1);
             RuquestedRide = new ScooterRide(_distance_);
+            RuquestedRide.SetRoute(currentCustomer.Home, currentCustomer.Work);}
 
         // WE will discuss with Whole TEAM
         /*
@@ -160,6 +240,16 @@ public class ConsoleUi {
     }
 
     public  void customerHomePage() {
+      System.out.println("New Notifications:");
+      if(currentCustomer.ReservABus){
+          for( BusRide sob:Busrideslist){
+              if(currentCustomer.ReservedBusRide == sob.BusRideId){
+                  sob.UpdateTicketPrice();
+              }
+          }
+      }
+
+      System.out.println("\n\n\n");
         System.out.println("1] Request a ride");
         System.out.println("2] Main.Main.Rides history");
         System.out.println("3] Main.Main.Rides.User.Customer Support");
@@ -205,6 +295,13 @@ public class ConsoleUi {
         String userMail = scanner.nextLine();
         System.out.print("Password:");
         String userPassword = scanner.nextLine();
+        for(Customer loggedin : customerList){
+            if(loggedin.Uber_Mail.equals(userMail) & loggedin.Uber_Password.equals(userPassword))
+            {
+                currentCustomer = loggedin;
+                break;
+            }
+        }
         customerHomePage();
     }
 

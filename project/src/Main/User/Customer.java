@@ -20,7 +20,8 @@ public class Customer extends Person {
     }
 
     public boolean ReservABus;
-    public Double  ReservationPrice;
+    public int ReservedBusRide = 0;
+
 
     public Customer(){
         super();
@@ -49,7 +50,9 @@ public class Customer extends Person {
     System.out.print("Payment Method: (Paypal - Card)");
     nCustomer.paymentMethodtype = scanner.nextLine();
 
+
     CustomerSavedData.customerList.add(nCustomer);
+    currentCustomer =CustomerSavedData.customerList.getLast();
 }
 
 }

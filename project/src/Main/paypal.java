@@ -3,8 +3,8 @@ package Main;
 import Main.User.Customer;
 
 public class paypal implements paymentStrategy {
-    String accountNumber ;
-    String password;
+    public String accountNumber ;
+     public String password;
     public double balance;
 
     public paypal(String accountNumber, String password) {
@@ -12,6 +12,14 @@ public class paypal implements paymentStrategy {
         this.password = password;
         this.balance = 0;
     }
+    public String getaccnum(){
+        return this.accountNumber;
+    }
+    public String getpassword(){
+        return this.password;
+    }
+
+
 
     public void setBalance(double balance) {
         this.balance = balance;
