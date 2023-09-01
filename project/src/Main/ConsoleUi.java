@@ -181,22 +181,22 @@ public class ConsoleUi {
 
         if(rideType.equals("bus")){
             vehicleinstance.vehicle chosenBus;
-            ArrayList<vehicleinstance.vehicle> avbuses = new ArrayList<vehicleinstance.vehicle>();
-            for(vehicleinstance.vehicle currentvh: vehiclelist){
+            ArrayList<vehicleinstance.vehicle> availableBuses = new ArrayList<vehicleinstance.vehicle>();
+            for(vehicleinstance.vehicle currentvehicle: vehiclelist){
 
-                if(currentvh.vehiclecapacity >= 14){
-                    avbuses.add(currentvh);
+                if(currentvehicle.vehiclecapacity >= 14){
+                    availableBuses.add(currentvehicle);
                 }
             }
             int numvh = 0;
 
-            for(vehicleinstance.vehicle eligible : avbuses){
-                System.out.println(++numvh + "." + eligible.toString());
+            for(vehicleinstance.vehicle bus : availableBuses){
+                System.out.println(++numvh + "." + bus.toString());
             }
             System.out.println("Enter the number of your choice");
             int busId = scanner.nextInt();
 
-            chosenBus = avbuses.get(busId-1);
+            chosenBus = availableBuses.get(busId-1);
             RequestedRide = new BusRide(_distance_,chosenBus.vehiclecapacity);
             RequestedRide.SetRoute(from, to);
              ((BusRide) RequestedRide).assignedvhmodel = chosenBus.vehicleModel; // compiler made this I don't why

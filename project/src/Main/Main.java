@@ -8,6 +8,7 @@ public class Main {
         //reads data so all you can use the list to go through anything you need
         DriverSavedData.ReadDriverData();
         CustomerSavedData.ReadCustomerData();
+        ReservedRidesData.ReadBusrideData();
 
 
 
@@ -17,5 +18,6 @@ public class Main {
         //writes the data back into the file so on the next run, everything in the list and everything added is saved
         CustomerSavedData.WriteCustomerData();
         DriverSavedData.WriteDriverdata();
+        ReservedRidesData.WriteBusridedata();
     }
 }

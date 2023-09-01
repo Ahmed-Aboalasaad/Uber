@@ -17,7 +17,7 @@ public class BusRide extends Ride implements BusReservation {
     public static int Idtracker = 1;
    public int BusRideId;
    public float MinimumCharge;
-   public Boolean stillAvailable = true;
+
 
    public int reservationsCount = 0;
    public int capacity;
@@ -25,7 +25,7 @@ public class BusRide extends Ride implements BusReservation {
    public float ticketPrice;
    public float oldticketprice = 0;
    public double Maxcharge = (ticketPrice)*this.capacity;
-
+    public Boolean stillAvailable = true;
    public boolean maderefund = true;
    public boolean tookaddition = true;
     @Override
@@ -43,6 +43,8 @@ public class BusRide extends Ride implements BusReservation {
 
 
 public BusRide(){super();}
+
+
     public void Reserve(Customer customer){
         revcustomerList.add(customer);
         reservationsCount++;
@@ -102,6 +104,7 @@ public BusRide(){super();}
 
     public void processRefund(Customer customer) {
         customer.payer.Refund(customer, (double)ticketPrice);
+        revcustomerList.remove(customer);
         customer.ReservedBusRide = 0;
         System.out.println("Ticket Price has been refunded to your account");
     }
@@ -121,7 +124,7 @@ public BusRide(){super();}
     public void CheckAvailability(Driver driver){
 
         if(stillAvailable){
-            System.out.println("Get ready for your trip");
+            System.out.println("still waiting to set off your trip");
         }else {
             System.out.println("your trip to "+ this.To +" has been cancelled");
             driver.BusrideId = 0;

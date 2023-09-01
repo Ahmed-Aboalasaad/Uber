@@ -9,7 +9,7 @@ import static Main.CustomerSavedData.customerList;
 // the file pathes in this class must be changed because they are wrong
 public class ReservedRidesData {
    public static LinkedList<BusRide> Busrideslist = new LinkedList<BusRide>();
-    public static void ReadDriverData() throws IOException {
+    public static void ReadBusrideData() throws IOException {
 
         BufferedReader Reader = new BufferedReader(new FileReader("C:\\Projects\\Uber\\project\\src\\Main\\UserData\\Rides.txt"));
         String line;
@@ -41,7 +41,7 @@ public class ReservedRidesData {
     }
 
 
-    public static void WriteDriverdata() throws IOException {
+    public static void WriteBusridedata() throws IOException {
         BufferedWriter BusRideData = new BufferedWriter(new FileWriter("C:\\Projects\\Uber\\project\\src\\Main\\UserData\\Rides.txt"));
 
         for(BusRide checkride:Busrideslist){

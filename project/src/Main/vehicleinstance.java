@@ -30,6 +30,7 @@ public class vehicleinstance {
         this.vehiclecapacity = 0;
         this.vehicleModel = null;
         this.vehicleType = null;
+        this.vehicleNumber = null;
     }
 
 
@@ -61,7 +62,9 @@ public double getdriverrating(){
 
         @Override
         public String toString(){
-            return " Model: "+this.vehicleModel + " \nType: " + this.vehicleType + " \nNumber: "+this.vehicleNumber +" \nCapacity: "+this.vehiclecapacity +"\nDriver rating: "+ getdriverrating();
+            return " Model: "+this.vehicleModel + " \nType: " + this.vehicleType +
+                    " \nNumber: "+this.vehicleNumber +" \nCapacity: "+this.vehiclecapacity +
+                    "\nDriver rating: "+ getdriverrating();
         }
 
     }
