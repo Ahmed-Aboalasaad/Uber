@@ -8,7 +8,7 @@ import java.util.LinkedList;
 public class CustomerSavedData {
     public static LinkedList<Customer> customerList = new LinkedList<>();
     public static void ReadCustomerData() throws IOException {
-        BufferedReader Reader = new BufferedReader(new FileReader("C:\\Users\\Adham\\IdeaProjects\\Uber\\project\\src\\Main.Main.Rides.UserData\\Main.Main.Rides.User.Customer.txt"));
+        BufferedReader Reader = new BufferedReader(new FileReader("C:\\Projects\\Uber\\project\\src\\Main\\UserData\\Customer.txt"));
         String line;
         while((line = Reader.readLine()) != null){
             Customer nCustomer = new Customer();
@@ -32,7 +32,7 @@ public class CustomerSavedData {
     }
     
     public static void WriteCustomerData() throws IOException {
-        BufferedWriter Writer = new BufferedWriter(new FileWriter("C:\\Users\\Adham\\IdeaProjects\\Uber\\project\\src\\Main.Main.Rides.UserData\\Main.Main.Rides.User.Customer.txt"));
+        BufferedWriter Writer = new BufferedWriter(new FileWriter("C:\\Projects\\Uber\\project\\src\\Main\\UserData\\Customer.txt"));
         for(int i = 0; i < customerList.size(); i++){
             
                 Writer.append(customerList.get(i).Name + "\n" + customerList.get(i).Age);

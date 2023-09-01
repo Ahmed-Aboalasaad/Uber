@@ -11,7 +11,7 @@ public class ReservedRidesData {
    public static LinkedList<BusRide> Busrideslist = new LinkedList<BusRide>();
     public static void ReadDriverData() throws IOException {
 
-        BufferedReader Reader = new BufferedReader(new FileReader("C:\\Users\\Adham\\IdeaProjects\\Uber\\project\\src\\Main.Main.Rides.UserData\\Main.Main.Rides.User.Driver.txt"));
+        BufferedReader Reader = new BufferedReader(new FileReader("C:\\Projects\\Uber\\project\\src\\Main\\UserData\\Rides.txt"));
         String line;
         while((line = Reader.readLine()) != null){
             BusRide newbusride = new BusRide();
@@ -42,7 +42,7 @@ public class ReservedRidesData {
 
 
     public static void WriteDriverdata() throws IOException {
-        BufferedWriter BusRideData = new BufferedWriter(new FileWriter("C:\\Users\\Adham\\IdeaProjects\\Uber\\project\\src\\Main.Main.Rides.UserData\\Main.Main.Rides.User.Driver.txt"));
+        BufferedWriter BusRideData = new BufferedWriter(new FileWriter("C:\\Projects\\Uber\\project\\src\\Main\\UserData\\Rides.txt"));
 
         for(BusRide checkride:Busrideslist){
             if(checkride.revcustomerList.isEmpty()){
