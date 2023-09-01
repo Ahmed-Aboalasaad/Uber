@@ -38,7 +38,7 @@ public class CustomerSavedData {
             
                 Writer.append(customerList.get(i).Name + "\n" + customerList.get(i).Age);
                 Writer.append("\n" + customerList.get(i).Uber_Mail + "\n" + customerList.get(i).Uber_Password);
-                Writer.append("\n" + customerList.get(i).ReservABus + "\n" + customerList.get(i).ReservedBusRide+ "\n");
+                Writer.append("\n" + customerList.get(i).ReservABus.toString() + "\n" + customerList.get(i).ReservedBusRide+ "\n");
             Writer.append("\n" + customerList.get(i).payer.getaccnum() + "\n" + customerList.get(i).payer.getpassword()+ "\n");
 
 

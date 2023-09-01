@@ -19,7 +19,7 @@ public class Customer extends Person {
         return currentCustomer;
     }
 
-    public boolean ReservABus;
+    public Boolean ReservABus;
     public int ReservedBusRide = 0;
 
 
