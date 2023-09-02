@@ -27,9 +27,10 @@ public class BusRide extends Ride implements BusReservation {
         return ticketPrice ;
     }
 
-    public BusRide(float distance, int capacity) {
+    public BusRide(float distance, int capacity , Customer customer) {
         super(distance);
         this.capacity = capacity;
+        this.Reserve(customer);
         BusRideId = Idtracker;
         Idtracker++;
         savedata();
@@ -38,6 +39,9 @@ public class BusRide extends Ride implements BusReservation {
     public BusRide(){
        super();
    }
+
+
+
     public void Reserve(Customer customer){
         revcustomerList.add(customer);
         reservationsCount++;
@@ -54,7 +58,8 @@ public class BusRide extends Ride implements BusReservation {
         oldticketprice =ticketPrice;
         ticketPrice= MinimumCharge / reservationsCount;
         tookaddition = false;
-        customer.ReservedBusRide = this.BusRideId;
+        customer.ReservedBusRide = 0;
+        processRefund(customer);
         System.out.println("Reserve Cancelled");
     }
 
@@ -73,7 +78,7 @@ public class BusRide extends Ride implements BusReservation {
             System.out.println("your trip ticket price has changed from "
                     + oldticketprice + " to "+ ticketPrice);
 
-            System.out.println((oldticketprice-ticketPrice)+" were deducted from your account");
+            System.out.println((ticketPrice-oldticketprice)+" were deducted from your account");
         }
 
     }
@@ -90,7 +95,7 @@ public class BusRide extends Ride implements BusReservation {
 
     public void processTakeAddition(){
         for(Customer customer:revcustomerList){
-            customer.payer.deductBalance((double)(oldticketprice - ticketPrice));
+            customer.payer.deductBalance((double)(ticketPrice - oldticketprice);
         }
         tookaddition = true;
     }
@@ -124,5 +129,11 @@ public class BusRide extends Ride implements BusReservation {
         }
 
     }
+@Override
+    public String toString(){
+       return "trip id: "+ this.BusRideId + "\n vehicle model: "+ this.assignedvhmodel
+               +"\n vehicle number: "+this.assignedvhnumber + "\n Capacity: "+this.capacity
+               +"\n ticketprice:" + this.ticketPrice + "\n From:"+ this.From +"\nTo:"+ this.To;
+}
 
 }

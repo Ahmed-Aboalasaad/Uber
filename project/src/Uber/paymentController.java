@@ -18,7 +18,7 @@ public class paymentController {
     public void setStrategy(Customer customer) {
         Scanner scanner = new Scanner(System.in);
 
-        if (customer.paymentMethodtype.equals("Main.paypal")) {
+        if (customer.paymentMethodtype.equals("paypal")) {
             String paypalNumber = scanner.nextLine();
             String paypalPassword = scanner.nextLine();
 

@@ -10,6 +10,8 @@ import java.util.Scanner;
 import java.util.Set;
 import java.util.Stack;
 
+import static Uber.ReservedRidesData.Busrideslist;
+
 public class RideRequest {
     private Customer currentCustomer;
     Ride ride;
@@ -77,6 +79,7 @@ public class RideRequest {
      */
     private void requestBus() {
         vehicleBuilder.vehicle chosenBus;
+        ArrayList<BusRide> AvailableBusRides = new ArrayList<BusRide>();
         ArrayList< vehicleBuilder.vehicle > availableBuses = new ArrayList < vehicleBuilder.vehicle > ();
         for (vehicleBuilder.vehicle currentvehicle: vehiclelist) {
 
@@ -84,6 +87,35 @@ public class RideRequest {
                 availableBuses.add(currentvehicle);
             }
         }
+
+
+        for(BusRide searchride:Busrideslist){
+            if((searchride.reservationsCount < searchride.capacity) & searchride.From.equals(source)   & searchride.To.equals(destination) )
+            AvailableBusRides.add(searchride);
+
+        }
+
+        if(!AvailableBusRides.isEmpty()){
+            System.out.println("these are available rides with the same road:");
+            for(BusRide chooseride:AvailableBusRides){
+                System.out.println(chooseride.toString());
+
+            }
+
+            System.out.println("enter the id of your chosen ride:");
+            int chosenrideid = scanner.nextInt();
+            for(BusRide chosen:AvailableBusRides){
+                if(chosen.BusRideId == chosenrideid){
+                   chosen.Reserve(currentCustomer);
+                   ride = chosen;
+                   return;
+
+
+                }
+            }
+        }
+
+
         int numvh = 0;
 
         for (vehicleBuilder.vehicle bus: availableBuses) {
@@ -93,7 +125,7 @@ public class RideRequest {
         int busId = scanner.nextInt();
 
         chosenBus = availableBuses.get(busId - 1);
-        ride = new BusRide(distance, chosenBus.vehiclecapacity);
+        ride = new BusRide(distance, chosenBus.vehiclecapacity,currentCustomer);
         ride.SetRoute(source, destination);
         ((BusRide) ride).assignedvhmodel = chosenBus.vehicleModel; // compiler made this I don't why
         ((BusRide) ride).assignedvhnumber = chosenBus.vehicleNumber;

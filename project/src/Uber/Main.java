@@ -11,8 +11,8 @@ public class Main {
         CustomerSavedData.ReadCustomerData();
         ReservedRidesData.ReadBusrideData();
 
-        ConsoleUi consoleUI = new ConsoleUi();
-        consoleUI.mainMenu();
+
+        Global.consoleUI.mainMenu();
 
         // Save
         CustomerSavedData.WriteCustomerData();

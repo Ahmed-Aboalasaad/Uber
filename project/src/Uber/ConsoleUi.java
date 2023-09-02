@@ -113,7 +113,7 @@ public class ConsoleUi {
         scanner.nextLine();
         switch (choice) {
             case 1:
-                requestARide();
+                RideRequest RideService = new RideRequest(currentCustomer);
                 break;
             case 2:
                 customerRidesHistory();
@@ -213,7 +213,7 @@ public class ConsoleUi {
             registeredVehicle.setVehicleNumber(availableDriver.vehicleNumber);
             registeredVehicle.setVehicleType(availableDriver.vehicleType);
 
-            vehiclelist.add(registeredVehicle.build());
+            RideRequest.vehiclelist.add(registeredVehicle.build());
             registeredVehicle.reset();
         }
     }
