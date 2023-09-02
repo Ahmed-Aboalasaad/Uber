@@ -32,7 +32,7 @@ public class PathFinder {
      * @param graph the graph to find paths within
      * @param path a stack to be filled with roads each time find() is called
      */
-    PathFinder(Graph graph, Stack<Road> path) {
+    public PathFinder(Graph graph, Stack<Road> path) {
         this.graph = graph;
         this.path = path;
     }

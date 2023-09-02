@@ -1,10 +1,14 @@
 package Uber.Rides;
 
+import Uber.Global;
+import Uber.Graph.PathFinder;
+import Uber.Graph.Road;
 import Uber.User.Customer;
-import Uber.vehicleinstance;
-
+import Uber.vehicleBuilder;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.Set;
+import java.util.Stack;
 
 public class RideRequest {
     private Customer currentCustomer;
@@ -13,7 +17,7 @@ public class RideRequest {
     String destination = null;
     float distance = 0;
     Scanner scanner = new Scanner(System.in);
-    ArrayList<vehicleinstance.vehicle> vehiclelist = new ArrayList <>();
+    ArrayList<vehicleBuilder.vehicle> vehiclelist = new ArrayList <>();
 
     /**
      * Initialize the ride request
@@ -21,13 +25,15 @@ public class RideRequest {
      */
     RideRequest(Customer currentCustomer) {
         this.currentCustomer = currentCustomer;
+        inputRideInfo();
+        confirmPrice();
     }
 
     /**
-     * Let the user choose a ride and request it
+     * let the user determine the source, destination, and type of their trip
      */
-    public void request() {
-        // determine source & destination
+    private void inputRideInfo() {
+        // input source & destination
         System.out.println("1] Home -> Work\n2] Work -> Home\n3] Other");
         int choice = scanner.nextInt();
         switch (choice) {
@@ -40,14 +46,17 @@ public class RideRequest {
                 source = currentCustomer.Work;
                 break;
             case 3:
-
-                System.out.print("From:");
+                System.out.println("Available Pickups: ");
+                Set<String> Pickups = Global.map.getCitiesNames();
+                for (String pickup : Pickups)
+                    System.out.print(pickup + ". ");
+                System.out.print("You'll go From: ");
                 source = scanner.nextLine();
-                System.out.print("To:");
+                System.out.print(" -> ");
                 destination = scanner.nextLine();
         }
 
-        // determine ride type & call its suitable request
+        // determine ride type & call its suitable requester
         System.out.print("Ride type: (Bus - Car - Scooter)");
         String rideType = scanner.nextLine();
         switch (rideType) {
@@ -61,18 +70,15 @@ public class RideRequest {
                 requestScooter();
                 break;
         }
-
-        float totalPrice = ride.CalculatePrice(distance);
-        System.out.println("TotalPrice($):" + totalPrice);
-        System.out.println("Confirm? (y/n)");
-        char choiceChar = scanner.next().charAt(0);
-        if (choiceChar == 'y')
-            PaymentValidation(totalPrice);
     }
+
+    /**
+     *
+     */
     private void requestBus() {
-        vehicleinstance.vehicle chosenBus;
-        ArrayList< vehicleinstance.vehicle > availableBuses = new ArrayList < vehicleinstance.vehicle > ();
-        for (vehicleinstance.vehicle currentvehicle: vehiclelist) {
+        vehicleBuilder.vehicle chosenBus;
+        ArrayList< vehicleBuilder.vehicle > availableBuses = new ArrayList < vehicleBuilder.vehicle > ();
+        for (vehicleBuilder.vehicle currentvehicle: vehiclelist) {
 
             if (currentvehicle.vehiclecapacity >= 14) {
                 availableBuses.add(currentvehicle);
@@ -80,7 +86,7 @@ public class RideRequest {
         }
         int numvh = 0;
 
-        for (vehicleinstance.vehicle bus: availableBuses) {
+        for (vehicleBuilder.vehicle bus: availableBuses) {
             System.out.println(++numvh + "." + bus.toString());
         }
         System.out.println("Enter the number of your choice");
@@ -92,10 +98,11 @@ public class RideRequest {
         ((BusRide) ride).assignedvhmodel = chosenBus.vehicleModel; // compiler made this I don't why
         ((BusRide) ride).assignedvhnumber = chosenBus.vehicleNumber;
     }
+
     private void requestCar() {
-        vehicleinstance.vehicle chosencar;
-        ArrayList < vehicleinstance.vehicle > avcars = new ArrayList < vehicleinstance.vehicle > ();
-        for (vehicleinstance.vehicle currentvh: vehiclelist) {
+        vehicleBuilder.vehicle chosencar;
+        ArrayList < vehicleBuilder.vehicle > avcars = new ArrayList < vehicleBuilder.vehicle > ();
+        for (vehicleBuilder.vehicle currentvh: vehiclelist) {
 
             if (currentvh.vehiclecapacity >= 4 & currentvh.vehiclecapacity <= 6) {
                 avcars.add(currentvh);
@@ -103,7 +110,7 @@ public class RideRequest {
         }
         int numcar = 0;
 
-        for (vehicleinstance.vehicle eligible: avcars) {
+        for (vehicleBuilder.vehicle eligible: avcars) {
             System.out.println(++numcar + "." + eligible.toString());
         }
         System.out.println("Enter the number of your choice");
@@ -114,10 +121,11 @@ public class RideRequest {
         ride = new CarRide(distance);
         ride.SetRoute(source, destination);
     }
+
     private void requestScooter() {
-        vehicleinstance.vehicle chosenscouter;
-        ArrayList < vehicleinstance.vehicle > avscouters = new ArrayList < vehicleinstance.vehicle > ();
-        for (vehicleinstance.vehicle currentvh: vehiclelist) {
+        vehicleBuilder.vehicle chosenscouter;
+        ArrayList < vehicleBuilder.vehicle > avscouters = new ArrayList < vehicleBuilder.vehicle > ();
+        for (vehicleBuilder.vehicle currentvh: vehiclelist) {
 
             if (currentvh.vehicleType.equals("scouter")) {
                 avscouters.add(currentvh);
@@ -125,7 +133,7 @@ public class RideRequest {
         }
         int numvh = 0;
 
-        for (vehicleinstance.vehicle eligible: avscouters) {
+        for (vehicleBuilder.vehicle eligible: avscouters) {
             System.out.println(++numvh + "." + eligible.toString());
         }
         System.out.println("enter the number of your choice");
@@ -134,5 +142,24 @@ public class RideRequest {
         chosenscouter = avscouters.get(scouterid - 1);
         ride = new ScooterRide(distance);
         ride.SetRoute(source, destination);
+    }
+
+    /**
+     * Calculate the distance, price, and ask the user to confirm reservation
+     * with the calculated price
+     */
+    public void confirmPrice() {
+        // find the trip distance
+        Stack<Road> path = new Stack<>();
+        PathFinder pathFinder = new PathFinder(Global.map, path);
+        distance = pathFinder.find(source, destination);
+
+        // calculate price
+        float totalPrice = ride.CalculatePrice(distance);
+        System.out.println("TotalPrice($):" + totalPrice);
+        System.out.println("Confirm? (y/n)");
+        char choiceChar = scanner.next().charAt(0);
+        if (choiceChar == 'y')
+            PaymentValidation(totalPrice);
     }
 }

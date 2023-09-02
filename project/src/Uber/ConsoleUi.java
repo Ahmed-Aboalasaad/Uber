@@ -2,7 +2,7 @@ package Uber;
 import Uber.Rides.*;
 import Uber.User.*;
 import Uber.Menus.*;
-import java.util.ArrayList;
+
 import java.util.Scanner;
 
 import static Uber.CustomerSavedData.customerList;
@@ -17,7 +17,7 @@ public class ConsoleUi {
     public static Scanner scanner = new Scanner(System.in);
     Customer currentCustomer;
     Driver currentDriver;
-    vehicleinstance registeredVehicle = new vehicleinstance();
+    vehicleBuilder registeredVehicle = new vehicleBuilder();
 
     /**
      * Entry point

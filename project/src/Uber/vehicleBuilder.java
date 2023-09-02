@@ -4,7 +4,7 @@ import Uber.User.Driver;
 
 import static Uber.DriverSavedData.driverList;
 
-public class vehicleinstance {
+public class vehicleBuilder {
     public String vehicleModel;
     public String vehicleType;
     public String vehicleNumber;
