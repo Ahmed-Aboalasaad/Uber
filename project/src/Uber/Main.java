@@ -1,21 +1,18 @@
-package Main;
+package Uber;
 
 import java.io.IOException;
 
-
 public class Main {
     public static void main(String[] args) throws IOException {
-        //reads data so all you can use the list to go through anything you need
+        // Load
         DriverSavedData.ReadDriverData();
         CustomerSavedData.ReadCustomerData();
         ReservedRidesData.ReadBusrideData();
 
+        ConsoleUi consoleUI = new ConsoleUi();
+        consoleUI.mainMenu();
 
-
-        ConsoleUi CI = new ConsoleUi();
-        CI.startPage();
-
-        //writes the data back into the file so on the next run, everything in the list and everything added is saved
+        // Save
         CustomerSavedData.WriteCustomerData();
         DriverSavedData.WriteDriverdata();
         ReservedRidesData.WriteBusridedata();

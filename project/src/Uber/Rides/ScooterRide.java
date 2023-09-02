@@ -1,4 +1,4 @@
-package Main.Rides;
+package Uber.Rides;
 
 public class ScooterRide extends Ride {
     float pricePerKM = 5;

@@ -1,5 +1,5 @@
-package Main;
-import Main.User.Customer;
+package Uber;
+import Uber.User.Customer;
 
 /**
  * The credit_card class implements the paymentStrategy interface for credit card payments.

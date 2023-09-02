@@ -1,4 +1,4 @@
-package Main.Rides;
+package Uber.Rides;
 
 /**
  * The CarRide class represents a ride provided by a car in the ride-sharing system.

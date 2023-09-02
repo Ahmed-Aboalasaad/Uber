@@ -1,34 +1,28 @@
-package Main.Rides;
+package Uber.Rides;
 
 import java.util.ArrayList;
-import Main.User.*;
+import Uber.User.*;
 
-import static Main.ReservedRidesData.Busrideslist;
+import static Uber.ReservedRidesData.Busrideslist;
 
 
 public class BusRide extends Ride implements BusReservation {
-
-    // ADD Main.Main.Rides.User.Customer Package !!!!
    public ArrayList <Customer> revcustomerList = new ArrayList<Customer>();
-
    public String assignedvhmodel;
     public String assignedvhnumber;
-
     public static int Idtracker = 1;
    public int BusRideId;
    public float MinimumCharge;
-
-
    public int reservationsCount = 0;
    public int capacity;
-
    public float ticketPrice;
    public float oldticketprice = 0;
    public double Maxcharge = (ticketPrice)*this.capacity;
     public Boolean stillAvailable = true;
    public boolean maderefund = true;
    public boolean tookaddition = true;
-    @Override
+
+   @Override
     public float CalculatePrice(float distance) {
         return ticketPrice ;
     }
@@ -41,10 +35,9 @@ public class BusRide extends Ride implements BusReservation {
         savedata();
     }
 
-
-public BusRide(){super();}
-
-
+    public BusRide(){
+       super();
+   }
     public void Reserve(Customer customer){
         revcustomerList.add(customer);
         reservationsCount++;

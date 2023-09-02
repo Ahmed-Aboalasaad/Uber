@@ -1,6 +1,6 @@
-package Main;
+package Uber;
 
-import Main.User.Customer;
+import Uber.User.Customer;
 
 import java.io.*;
 import java.util.LinkedList;
@@ -8,7 +8,8 @@ import java.util.LinkedList;
 public class CustomerSavedData {
     public static LinkedList<Customer> customerList = new LinkedList<>();
     public static void ReadCustomerData() throws IOException {
-        BufferedReader Reader = new BufferedReader(new FileReader("C:\\Projects\\Uber\\project\\src\\Main\\UserData\\Customer.txt"));
+        String path = ".\\project\\src\\Uber\\UserData\\Customer.txt";
+        BufferedReader Reader = new BufferedReader(new FileReader(path));
         String line;
         while((line = Reader.readLine()) != null){
             Customer nCustomer = new Customer();
@@ -32,7 +33,8 @@ public class CustomerSavedData {
     }
     
     public static void WriteCustomerData() throws IOException {
-        BufferedWriter Writer = new BufferedWriter(new FileWriter("C:\\Projects\\Uber\\project\\src\\Main\\UserData\\Customer.txt"));
+        String path = ".\\project\\src\\Uber\\UserData\\Customer.txt";
+        BufferedWriter Writer = new BufferedWriter(new FileWriter(path));
         for(int i = 0; i < customerList.size(); i++){
             
                 Writer.append(customerList.get(i).Name + "\n" + customerList.get(i).Age);

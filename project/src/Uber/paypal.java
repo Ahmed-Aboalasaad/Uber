@@ -1,6 +1,6 @@
-package Main;
+package Uber;
 
-import Main.User.Customer;
+import Uber.User.Customer;
 
 public class paypal implements paymentStrategy {
     public String accountNumber ;

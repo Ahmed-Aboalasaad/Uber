@@ -1,6 +1,4 @@
-package Main.Graph;
-
-import Main.*;
+package Uber.Graph;
 
 public class Road {
     public String destination;

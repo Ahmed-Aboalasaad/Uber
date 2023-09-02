@@ -1,4 +1,4 @@
-package Main.User;
+package Uber.User;
 
 /**
  * The Person abstract class serves as a base class for representing individuals in the ride-sharing system.

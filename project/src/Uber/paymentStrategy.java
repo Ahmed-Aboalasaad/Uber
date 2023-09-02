@@ -1,6 +1,6 @@
-package Main;
+package Uber;
 
-import Main.User.Customer;
+import Uber.User.Customer;
 /**
  * The paymentStrategy interface defines methods that encapsulate,
  * payment-related functionality and strategies.

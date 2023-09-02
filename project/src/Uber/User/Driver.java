@@ -1,6 +1,6 @@
 
-package Main.User;
-import Main.*;
+package Uber.User;
+import Uber.*;
 import java.util.Scanner;
 
 /**
@@ -28,7 +28,7 @@ public class Driver  extends Person {
      *
      * @return The current driver instance.
      */
-    public static Driver getInstance(){
+    public static Driver singletonDriver(){
         if(currentDriver == null){
             currentDriver = new Driver();
 

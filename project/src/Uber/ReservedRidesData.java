@@ -1,17 +1,17 @@
-package Main;
-import Main.User.*;
+package Uber;
+import Uber.User.*;
 
 import java.io.*;
 import java.util.LinkedList;
-import Main.Rides.*;
+import Uber.Rides.*;
 
-import static Main.CustomerSavedData.customerList;
+import static Uber.CustomerSavedData.customerList;
 // the file pathes in this class must be changed because they are wrong
 public class ReservedRidesData {
    public static LinkedList<BusRide> Busrideslist = new LinkedList<BusRide>();
     public static void ReadBusrideData() throws IOException {
-
-        BufferedReader Reader = new BufferedReader(new FileReader("C:\\Projects\\Uber\\project\\src\\Main\\UserData\\Rides.txt"));
+        String path = ".\\project\\src\\Uber\\UserData\\Rides.txt";
+        BufferedReader Reader = new BufferedReader(new FileReader(path));
         String line;
         while((line = Reader.readLine()) != null){
             BusRide newbusride = new BusRide();
@@ -42,7 +42,8 @@ public class ReservedRidesData {
 
 
     public static void WriteBusridedata() throws IOException {
-        BufferedWriter BusRideData = new BufferedWriter(new FileWriter("C:\\Projects\\Uber\\project\\src\\Main\\UserData\\Rides.txt"));
+        String path = ".\\project\\src\\Uber\\UserData\\Rides.txt";
+        BufferedWriter BusRideData = new BufferedWriter(new FileWriter(path));
 
         for(BusRide checkride:Busrideslist){
             if(checkride.revcustomerList.isEmpty()){

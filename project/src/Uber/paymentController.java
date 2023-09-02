@@ -1,5 +1,5 @@
-package Main;
-import Main.User.Customer;
+package Uber;
+import Uber.User.Customer;
 import java.util.Scanner;
 
 

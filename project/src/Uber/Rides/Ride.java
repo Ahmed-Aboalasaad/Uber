@@ -1,4 +1,4 @@
-package Main.Rides;
+package Uber.Rides;
 
 /**
  * The Ride abstract class serves as a base class for representing different types of rides in the ride-sharing system.

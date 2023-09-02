@@ -1,4 +1,4 @@
-package Main.Rides;
+package Uber.Rides;
 
 /**
  * The BusReservation interface defines a contract for updating ticket prices of bus rides.

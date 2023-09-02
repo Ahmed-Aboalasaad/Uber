@@ -1,6 +1,6 @@
-package Main.User;
+package Uber.User;
 
-import Main.*;
+import Uber.*;
 
 import java.util.Scanner;
 
@@ -19,15 +19,13 @@ public class Customer extends Person {
     private static Customer currentCustomer = null;
 
     /**
-     * Returns the singleton instance of the Customer class.
-     * If the instance doesn't exist, creates a new instance and returns it.
-     *
+     * Creates a 'singleton' instance of the Customer class(if it doesn't exist)
+     * It there's already one, it returns it
      * @return The current customer instance.
      */
-    public static Customer getInstance(){
-        if(currentCustomer == null){
+    public static Customer singletonCustomer(){
+        if(currentCustomer == null)
             currentCustomer = new Customer();
-        }
         return currentCustomer;
     }
 
