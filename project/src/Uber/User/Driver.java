@@ -14,12 +14,11 @@ public class Driver  extends Person {
     public String vehicleModel;
     public String vehicleType;
     public String vehicleNumber;
-
     public  int vehiclecapacity;
     public int BusrideId;
-
-    public int numofrates;
-    public double totalrates;
+    public int ratesNumber;
+    public float ratesSum;
+    public float rate;
     private static Driver currentDriver = null;
 
     /**
@@ -31,7 +30,6 @@ public class Driver  extends Person {
     public static Driver singletonDriver(){
         if(currentDriver == null){
             currentDriver = new Driver();
-
         }
         return currentDriver;
     }
@@ -41,9 +39,7 @@ public class Driver  extends Person {
      * Use getInstance() method to obtain the current driver instance.
      */
     public Driver(){
-
         super();
-        //this.form();
     }
 
     /**
@@ -76,7 +72,7 @@ public class Driver  extends Person {
         System.out.print("enter your vehicle's capacity:");
         currentDriver.vehiclecapacity = scanner.nextInt();
 
-        DriverSavedData.driverList.add(currentDriver);
+        DriverDataSaver.drivers.add(currentDriver);
     }
 
 }

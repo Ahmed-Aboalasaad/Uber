@@ -2,9 +2,9 @@ package Uber;
 
 import Uber.User.Driver;
 
-import static Uber.DriverSavedData.driverList;
+import static Uber.DriverDataSaver.drivers;
 
-public class vehicleBuilder {
+public class VehicleBuilder {
     public String vehicleModel;
     public String vehicleType;
     public String vehicleNumber;
@@ -25,46 +25,40 @@ public class vehicleBuilder {
     public vehicle build(){
         return  new vehicle(this.vehicleModel, this.vehicleType,this.vehicleNumber,this.vehiclecapacity);
     }
-
     public void reset(){
         this.vehiclecapacity = 0;
         this.vehicleModel = null;
         this.vehicleType = null;
         this.vehicleNumber = null;
     }
-
-
-    public class vehicle{
+    public class vehicle {
         public String vehicleModel;
         public String vehicleType;
         public String vehicleNumber;
 
-        public  int vehiclecapacity;
+        public  int vehicleCapacity;
 
-        public vehicle(String vehicleModel, String vehicleType, String vehicleNumber, int vehiclecapacity) {
+        public vehicle(String vehicleModel, String vehicleType,
+                       String vehicleNumber, int vehicleCapacity) {
             this.vehicleModel = vehicleModel;
             this.vehicleType = vehicleType;
             this.vehicleNumber = vehicleNumber;
-            this.vehiclecapacity = vehiclecapacity;
+            this.vehicleCapacity = vehicleCapacity;
         }
-public double getdriverrating(){
-            Driver vhdriver = null;
-            for(Driver cudrivers:driverList){
-                if(cudrivers.vehicleNumber.equals(this.vehicleNumber)){
-                    vhdriver = cudrivers;
-                    break;
+        public float updateDriverRate(){
+            for(Driver driver : drivers)
+                if(driver.vehicleNumber.equals(this.vehicleNumber)){
+                    driver.rate = driver.ratesSum / driver.ratesNumber;
+                    return driver.rate;
                 }
-            }
-
-
-            return (vhdriver.totalrates/ vhdriver.numofrates);
-}
+            return -1f;
+        }
 
         @Override
         public String toString(){
             return " Model: "+this.vehicleModel + " \nType: " + this.vehicleType +
-                    " \nNumber: "+this.vehicleNumber +" \nCapacity: "+this.vehiclecapacity +
-                    "\nDriver rating: "+ getdriverrating();
+                    " \nNumber: "+this.vehicleNumber +" \nCapacity: "+this.vehicleCapacity +
+                    "\nDriver rating: "+ updateDriverRate();
         }
 
     }

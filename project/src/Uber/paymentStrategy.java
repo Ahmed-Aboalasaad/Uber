@@ -10,8 +10,8 @@ public interface paymentStrategy {
     public String getAccountNumber();
     public String getAccountPassword();
     public boolean checkCredentials(String username,String password);
-    public boolean checkBalance(double amount);
-    public void deductBalance(double amount);
-    public void Refund(Customer customer, Double amount);
+    public boolean checkBalance(float amount);
+    public void deductBalance(float amount);
+    public void Refund(Customer customer, float amount);
 
 }

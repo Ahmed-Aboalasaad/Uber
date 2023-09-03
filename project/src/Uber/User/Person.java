@@ -6,7 +6,6 @@ package Uber.User;
  * Subclasses of this class should implement the 'form' method to gather user-specific information.
  */
 public  abstract class Person {
-
    public String Name;
     public short Age;
     public String Uber_Mail;
@@ -27,12 +26,12 @@ public  abstract class Person {
      * @param Uber_Password The password associated with the person.
      */
     public Person(String Name, short Age, String Uber_Mail, String Uber_Password) {
-
         this.Name = Name;
         this.Age = Age;
         this.Uber_Mail = Uber_Mail;
         this.Uber_Password = Uber_Password;
     }
+
     /**
      * Abstract method to be implemented by subclasses.
      * This method is responsible for gathering specific user information.

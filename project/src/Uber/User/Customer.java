@@ -3,6 +3,7 @@ package Uber.User;
 import Uber.*;
 
 import java.util.Scanner;
+import java.util.Set;
 
 /**
  * The Customer class represents a user who can make reservations for bus rides.
@@ -31,18 +32,17 @@ public class Customer extends Person {
 
     public Customer(){
         super();
-       // this.form();
     }
 
-/**
-     * Collects user input to fill in the customer's information and saves it.
-     * Prompts the user to enter the customer's name, age, email, password, home,
-     * work, and payment method.
-     */
+    /**
+ * Collects user input to fill in the customer's information and saves it.
+ * Prompts the user to enter the customer's name, age, email, password, home,
+ * work, and payment method.
+ */
 @Override
-    public void form(){
+    public void form() {
     Scanner scanner = new Scanner(System.in);
-    System.out.println("Hi Customer, Please enter the following data:");
+    System.out.println("\t== Input Your Data ==");
     System.out.print("Name:");
     currentCustomer.Name = scanner.nextLine();
     System.out.print("Age:");
@@ -51,13 +51,29 @@ public class Customer extends Person {
     currentCustomer.Uber_Mail = scanner.nextLine();
     System.out.print("Password:");
     currentCustomer.Uber_Password = scanner.nextLine();
-    System.out.println("Home Location:");
-    currentCustomer.Home = scanner.nextLine();
-    System.out.println("Work Location:");
-    currentCustomer.Work = scanner.nextLine();
+    System.out.println("Available Pickups:");
+    Set<String> places = Global.graph.getCitiesNames();
+    for (String place : places)
+        System.out.print(place + ". ");
+    while (true) {
+        System.out.print("\nHome Location:");
+        currentCustomer.Home = scanner.nextLine();
+        if (Global.graph.cityExists(currentCustomer.Home))
+            break;
+        System.out.println("Invalid Home Location. Try Agian!");
+    }
+    while (true) {
+        System.out.print("Work Location:");
+        currentCustomer.Work = scanner.nextLine();
+        if (Global.graph.cityExists(currentCustomer.Work))
+            break;
+        System.out.println("Invalid Work Location. Try Agian!");
+    }
     System.out.print("Payment Method: (Paypal - Card)");
     currentCustomer.paymentMethodtype = scanner.nextLine();
-
-    CustomerSavedData.customerList.add(currentCustomer);
+paymentController pc = new paymentController();
+pc.setStrategy(currentCustomer);
+    CustomerDataSaver.customerList.add(currentCustomer);
+    System.out.println("Thanks! now, login again");
 }
 }

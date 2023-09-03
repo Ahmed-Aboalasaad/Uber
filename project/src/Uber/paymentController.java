@@ -18,15 +18,21 @@ public class paymentController {
     public void setStrategy(Customer customer) {
         Scanner scanner = new Scanner(System.in);
 
-        if (customer.paymentMethodtype.equals("paypal")) {
+        if (customer.paymentMethodtype.equals("Paypal")) {
+            System.out.println("enter account number:");
             String paypalNumber = scanner.nextLine();
+            System.out.println("Enter password ");
             String paypalPassword = scanner.nextLine();
 
             this.paymentStrategy = new paypal(paypalNumber, paypalPassword);
-        } else if (customer.paymentMethodtype.equals("Credit_card")) {
+        } else if (customer.paymentMethodtype.equals("Card")) {
+            System.out.println("Enter cridt card number ");
+
             String creditCardNumber = scanner.nextLine();
+            System.out.println("Enter cvv ");
+
             String CVV = scanner.nextLine();
-            this.paymentStrategy = new credit_card(creditCardNumber, CVV);
+            this.paymentStrategy = new CreditCard(creditCardNumber, CVV);
         }
 
         customer.payer = paymentStrategy;
@@ -67,7 +73,7 @@ public class paymentController {
      * @param amount The amount to be checked.
      * @return `true` if the balance is sufficient, otherwise `false`.
      */
-    public boolean checkBalance(double amount) {
+    public boolean checkBalance(float amount) {
         return this.paymentStrategy.checkBalance(amount);
     }
 
@@ -76,7 +82,7 @@ public class paymentController {
      *
      * @param amount The amount to be deducted.
      */
-    public void deductBalance(double amount) {
+    public void deductBalance(float amount) {
         this.paymentStrategy.deductBalance(amount);
     }
 
@@ -86,7 +92,7 @@ public class paymentController {
      * @param customer The customer to receive the refund.
      * @param amount   The amount to be refunded.
      */
-    public void Refund(Customer customer, Double amount) {
+    public void Refund(Customer customer, float amount) {
         this.paymentStrategy.Refund(customer, amount);
     }
 }

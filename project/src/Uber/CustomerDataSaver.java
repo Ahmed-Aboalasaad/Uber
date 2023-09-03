@@ -5,7 +5,7 @@ import Uber.User.Customer;
 import java.io.*;
 import java.util.LinkedList;
 
-public class CustomerSavedData {
+public class CustomerDataSaver {
     public static LinkedList<Customer> customerList = new LinkedList<>();
     public static void ReadCustomerData() throws IOException {
         String path = ".\\project\\src\\Uber\\UserData\\Customer.txt";
@@ -23,7 +23,7 @@ public class CustomerSavedData {
             if(nCustomer.paymentMethodtype.equals("paypal")){
                 nCustomer.payer = new paypal(Reader.readLine(), Reader.readLine());
             } else if(nCustomer.paymentMethodtype.equals("credit card")){
-                nCustomer.payer = new credit_card(Reader.readLine(), Reader.readLine());
+                nCustomer.payer = new CreditCard(Reader.readLine(), Reader.readLine());
             }
             customerList.add(nCustomer);
 

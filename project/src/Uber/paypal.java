@@ -5,12 +5,11 @@ import Uber.User.Customer;
 public class paypal implements paymentStrategy {
     public String accountNumber ;
      public String password;
-    public double balance;
+    public float balance = 500f;
 
     public paypal(String accountNumber, String password) {
         this.accountNumber = accountNumber;
         this.password = password;
-        this.balance = 0;
     }
 
     /**
@@ -32,7 +31,7 @@ public class paypal implements paymentStrategy {
      * Set the balance of paypal account
      * @param balance
      */
-    public void setBalance(double balance) {
+    public void setBalance(float balance) {
         this.balance = balance;
     }
 
@@ -44,7 +43,7 @@ public class paypal implements paymentStrategy {
      */
     @Override
     public boolean checkCredentials(String accountNumber, String password ) {
-        return (accountNumber.equals(this.accountNumber)) & (password.equals(this.password));
+        return (accountNumber.equals(this.accountNumber)) && (password.equals(this.password));
     }
 
     /**
@@ -53,7 +52,7 @@ public class paypal implements paymentStrategy {
      * @return boolean value
      */
     @Override
-    public boolean checkBalance (double amount){
+    public boolean checkBalance (float amount){
         return amount <= balance;
     }
 
@@ -61,7 +60,7 @@ public class paypal implements paymentStrategy {
      * decrease the balance of account by amount value
      * @param amount
      */
-    public void deductBalance(double amount){
+    public void deductBalance(float amount){
     this.balance -= amount;
     }
 
@@ -70,7 +69,7 @@ public class paypal implements paymentStrategy {
      * @param customer
      * @param amount
      */
-    public void Refund(Customer customer, Double amount){
+    public void Refund(Customer customer, float amount){
         balance += amount;
     }
 }

@@ -6,9 +6,8 @@ import java.util.LinkedList;
 /**
  * The DriverSavedData class manages reading and writing driver data to/from a file.
  */
-public class DriverSavedData {
-
-    public static LinkedList<Driver> driverList = new LinkedList<>();
+public class DriverDataSaver {
+    public static LinkedList<Driver> drivers = new LinkedList<>();
 
     /**
      * Reads driver data from a file and populates the driverList.
@@ -26,8 +25,8 @@ public class DriverSavedData {
             newDriver.Uber_Mail = Reader.readLine();
             newDriver.Uber_Password = Reader.readLine();
             newDriver.BusrideId = Integer.parseInt(Reader.readLine());
-            newDriver.numofrates = Integer.parseInt(Reader.readLine());
-            newDriver.totalrates = Double.parseDouble(Reader.readLine());
+            newDriver.ratesNumber = Integer.parseInt(Reader.readLine());
+            newDriver.ratesSum = Float.parseFloat(Reader.readLine());
             newDriver.licence = Reader.readLine();
             newDriver.licenceType = Reader.readLine();
             newDriver.vehicleModel = Reader.readLine();
@@ -35,7 +34,7 @@ public class DriverSavedData {
             newDriver.vehicleNumber = Reader.readLine();
             newDriver.vehiclecapacity = Integer.parseInt(Reader.readLine());
 
-            driverList.add(newDriver);
+            drivers.add(newDriver);
         }
         Reader.close();
     }
@@ -49,15 +48,15 @@ public class DriverSavedData {
         String path = ".\\project\\src\\Uber\\UserData\\Driver.txt";
         BufferedWriter DriverData = new BufferedWriter(new FileWriter(path));
 
-        for (int i = 0; i < driverList.size(); i++) {
-            DriverData.append(driverList.get(i).Name + "\n" + driverList.get(i).Age);
-            DriverData.append("\n" + driverList.get(i).Uber_Mail + "\n" + driverList.get(i).Uber_Password);
-            DriverData.append("\n" + driverList.get(i).BusrideId);
-            DriverData.append("\n" + driverList.get(i).numofrates + "\n" + driverList.get(i).totalrates);
-            DriverData.append("\n" + driverList.get(i).licence + "\n" + driverList.get(i).licenceType);
-            DriverData.append("\n" + driverList.get(i).vehicleModel + "\n" + driverList.get(i).vehicleType);
-            DriverData.append("\n" + driverList.get(i).vehicleNumber + "\n");
-            DriverData.append("\n" + driverList.get(i).vehiclecapacity + "\n");
+        for (int i = 0; i < drivers.size(); i++) {
+            DriverData.append(drivers.get(i).Name + "\n" + drivers.get(i).Age);
+            DriverData.append("\n" + drivers.get(i).Uber_Mail + "\n" + drivers.get(i).Uber_Password);
+            DriverData.append("\n" + drivers.get(i).BusrideId );
+            DriverData.append("\n" + drivers.get(i).ratesNumber + "\n" + drivers.get(i).ratesSum);
+            DriverData.append("\n" + drivers.get(i).licence + "\n" + drivers.get(i).licenceType);
+            DriverData.append("\n" + drivers.get(i).vehicleModel + "\n" + drivers.get(i).vehicleType);
+            DriverData.append("\n" + drivers.get(i).vehicleNumber + "\n");
+            DriverData.append("\n" + drivers.get(i).vehiclecapacity + "\n");
         }
         DriverData.close();
     }

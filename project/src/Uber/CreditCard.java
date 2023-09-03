@@ -4,11 +4,11 @@ import Uber.User.Customer;
 /**
  * The credit_card class implements the paymentStrategy interface for credit card payments.
  */
-public class credit_card implements paymentStrategy {
+public class CreditCard implements paymentStrategy {
 
     private String creditCardNumber;
     private String CVV;
-    private double balance;
+    private float balance = 500f;
 
     /**
      * Constructor to create a credit card payment strategy.
@@ -16,7 +16,7 @@ public class credit_card implements paymentStrategy {
      * @param creditCardNumber The credit card number.
      * @param CVV              The Card Verification Value (CVV).
      */
-    public credit_card(String creditCardNumber, String CVV) {
+    public CreditCard(String creditCardNumber, String CVV) {
         this.creditCardNumber = creditCardNumber;
         this.CVV = CVV;
     }
@@ -26,7 +26,7 @@ public class credit_card implements paymentStrategy {
      *
      * @param balance The new balance.
      */
-    public void setBalance(double balance) {
+    public void setBalance(float balance) {
         this.balance = balance;
     }
 
@@ -57,7 +57,7 @@ public class credit_card implements paymentStrategy {
      */
     @Override
     public boolean checkCredentials(String creditCardNumber, String CVV) {
-        return (creditCardNumber.equals(this.creditCardNumber)) & (CVV.equals(this.CVV));
+        return (creditCardNumber.equals(this.creditCardNumber)) && (CVV.equals(this.CVV));
     }
 
     /**
@@ -67,7 +67,7 @@ public class credit_card implements paymentStrategy {
      * @return `true` if the balance is sufficient, otherwise `false`.
      */
     @Override
-    public boolean checkBalance(double amount) {
+    public boolean checkBalance(float amount) {
         return amount <= balance;
     }
 
@@ -76,7 +76,7 @@ public class credit_card implements paymentStrategy {
      *
      * @param amount The amount to be deducted.
      */
-    public void deductBalance(double amount) {
+    public void deductBalance(float amount) {
         this.balance -= amount;
     }
 
@@ -86,7 +86,7 @@ public class credit_card implements paymentStrategy {
      * @param customer The customer to receive the refund.
      * @param amount   The amount to be refunded.
      */
-    public void Refund(Customer customer, Double amount) {
+    public void Refund(Customer customer, float amount) {
         balance += amount;
     }
 }

@@ -4,13 +4,14 @@ import static Uber.ConsoleUi.scanner;
 
 public class FAQ {
 
-    ConsoleUi consoleUi = new ConsoleUi();
+    ConsoleUi consoleUi = Global.consoleUI;
 
     /**
      * Displays a list of frequently asked questions (FAQs) related to customer support and provides answers.
      * Allows the user to select a question and read its corresponding answer.
      */
     public static void questions() {
+        System.out.println("\n\t\t=== FAQs ===");
         System.out.println("Q1: How do I request a ride?\n" +
                 "Q2: How do I pay for my ride?\n" +
                 "Q3: How do I cancel a ride?\n" +
@@ -48,5 +49,7 @@ public class FAQ {
         choice = scanner.nextInt();
         if (choice == 1)
             questions();
+        else
+            Global.consoleUI.customerHomePage();
     }
 }
